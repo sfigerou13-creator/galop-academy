@@ -272,12 +272,15 @@ header p{display:none;}
 .center-alt{display:flex;flex-direction:column;gap:4px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
 .link-btn{background:none;border:none;color:var(--accent);font-family:inherit;font-size:.82em;font-weight:600;cursor:pointer;text-align:left;padding:3px 0;}
 .link-btn:hover{text-decoration:underline;}
-.tip-card{display:flex;align-items:flex-start;gap:13px;background:linear-gradient(135deg,#FFFBEB,#FEF3F2);border:1px solid #FDE68A;border-radius:var(--r);padding:16px;box-shadow:var(--shadow);}
-.tip-emoji{font-size:1.9em;line-height:1;flex-shrink:0;}
-.tip-body{flex:1;}
-.tip-body strong{display:block;font-size:.92em;color:#B45309;margin-bottom:3px;}
-.tip-body p{font-size:.83em;color:#7C5E2E;line-height:1.55;}
-.tip-next{margin-top:10px;background:#fff;border:1px solid #FDE68A;color:#B45309;border-radius:20px;padding:6px 13px;font-family:inherit;font-size:.74em;font-weight:700;cursor:pointer;}
+.tip-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px 18px 13px;box-shadow:var(--shadow);}
+.tip-head{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
+.tip-ico{width:42px;height:42px;flex-shrink:0;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:1.25em;}
+.tip-title{font-family:'Playfair Display',Georgia,serif;font-size:1.05em;font-weight:600;color:var(--ink);line-height:1.25;}
+.tip-text{font-size:.87em;color:var(--ink-sub);line-height:1.65;}
+.tip-nav{display:flex;align-items:center;justify-content:flex-end;gap:13px;margin-top:13px;padding-top:11px;border-top:1px solid var(--border);}
+.tip-count{font-size:.72em;font-weight:600;color:var(--ink-sub);letter-spacing:.5px;}
+.tip-arrow{width:31px;height:31px;border-radius:50%;border:1px solid var(--border);background:var(--white);color:var(--accent);font-size:1.15em;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s;}
+.tip-arrow:hover{background:var(--accent-bg);border-color:var(--accent);}
 .article-card{display:flex;align-items:center;gap:13px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;box-shadow:var(--shadow);cursor:pointer;margin-bottom:10px;transition:transform .15s,box-shadow .15s;}
 .article-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
 .article-emoji{width:44px;height:44px;flex-shrink:0;border-radius:14px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:1.4em;}
@@ -2059,16 +2062,22 @@ const ARTICLES = [
 let _tipIdx = Math.floor(Date.now()/86400000) % TIPS.length;
 function renderTip(){
   const el=document.getElementById('tip-block'); if(!el) return;
-  const t=TIPS[_tipIdx % TIPS.length];
+  const i=((_tipIdx % TIPS.length)+TIPS.length)%TIPS.length;
+  const t=TIPS[i];
   const emoji=t[0].split(' ')[0];
   const title=t[0].slice(emoji.length).trim();
-  el.innerHTML=`<div class="tip-card">
-    <div class="tip-emoji">${emoji}</div>
-    <div class="tip-body"><strong>${title}</strong><p>${t[1]}</p>
-      <button class="tip-next" onclick="nextTip()">Autre conseil ↻</button></div>
-  </div>`;
+  el.innerHTML='<div class="tip-card">'
+    +'<div class="tip-head"><div class="tip-ico">'+emoji+'</div><div class="tip-title">'+title+'</div></div>'
+    +'<p class="tip-text">'+t[1]+'</p>'
+    +'<div class="tip-nav">'
+      +'<button class="tip-arrow" onclick="prevTip()" aria-label="Conseil précédent">\u2039</button>'
+      +'<span class="tip-count">'+(i+1)+' / '+TIPS.length+'</span>'
+      +'<button class="tip-arrow" onclick="nextTip()" aria-label="Conseil suivant">\u203A</button>'
+    +'</div>'
+  +'</div>';
 }
 function nextTip(){ _tipIdx=(_tipIdx+1)%TIPS.length; renderTip(); }
+function prevTip(){ _tipIdx=(_tipIdx-1+TIPS.length)%TIPS.length; renderTip(); }
 
 function renderArticles(){
   const el=document.getElementById('articles-list'); if(!el) return;
