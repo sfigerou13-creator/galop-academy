@@ -311,6 +311,16 @@ header p{display:none;}
 .tool-ico{width:40px;height:40px;border-radius:12px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:1.3em;}
 .tool-tile .tool-lbl{font-size:.68em;font-weight:700;color:var(--ink-sub);line-height:1.2;}
 @media(max-width:360px){.tool-grid{grid-template-columns:1fr 1fr 1fr;}}
+/* ===== PUB : bouton partenaire + modale ===== */
+.ad-partner-btn{position:absolute;bottom:8px;right:8px;z-index:3;background:var(--grad-brand);color:#fff;border:none;border-radius:20px;padding:6px 13px;font-family:inherit;font-size:.72em;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(124,58,237,.35);}
+.ad-partner-btn:hover{transform:translateY(-1px);}
+#partner-modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+#partner-modal.open{display:flex;}
+#partner-box{background:var(--white);border-radius:var(--r-lg);padding:26px 22px;width:100%;max-width:380px;position:relative;max-height:90vh;overflow:auto;}
+#partner-close{position:absolute;top:14px;right:14px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:.85em;color:var(--ink-sub);}
+#partner-box h2{font-size:1.15em;font-weight:800;margin-bottom:4px;}
+.partner-sub{font-size:.84em;color:var(--ink-sub);line-height:1.5;margin-bottom:14px;}
+#partner-box textarea.auth-input{resize:vertical;min-height:64px;font-family:inherit;}
 .races-filter{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0;}
 .race-filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--ink-sub);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.82em;transition:all .2s;font-family:inherit;}
 .race-filter-btn:hover,.race-filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
@@ -415,6 +425,27 @@ header p{display:none;}
     </div>
   </div>
 </div>
+<div id="partner-modal">
+  <div id="partner-box">
+    <button id="partner-close" onclick="closePartnerModal()">✕</button>
+    <h2>🤝 Devenir partenaire</h2>
+    <p class="partner-sub">Touchez les jeunes cavaliers et leurs familles. Laissez vos coordonnées, on vous recontacte vite.</p>
+    <input class="auth-input" id="pl-name" placeholder="Votre nom">
+    <input class="auth-input" id="pl-company" placeholder="Entreprise / marque *">
+    <input class="auth-input" id="pl-email" type="email" placeholder="Email de contact *">
+    <select class="auth-input" id="pl-budget">
+      <option value="">Budget mensuel (facultatif)</option>
+      <option>moins de 100 €</option>
+      <option>100 – 500 €</option>
+      <option>500 – 2000 €</option>
+      <option>plus de 2000 €</option>
+    </select>
+    <textarea class="auth-input" id="pl-message" rows="3" placeholder="Votre message (produits, objectifs...)"></textarea>
+    <div id="pl-msg" class="auth-msg"></div>
+    <button class="auth-submit" onclick="submitPartnerLead()">Envoyer ma demande</button>
+  </div>
+</div>
+
 <div id="progress-banner">
   <span id="rank-badge">🥉 Débutante</span>
   <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
@@ -2123,7 +2154,7 @@ function renderHub(){
   const total=Object.values(progress).reduce((a,b)=>a+b,0);
   const gt=document.getElementById('galop-tile-prog'); if(gt) gt.textContent=total+' / 21 ⭐';
   const gb=document.getElementById('galop-tile-bar'); if(gb) gb.style.width=(total/21*100)+'%';
-  const ad=document.getElementById('home-ad'); if(ad && !ad.getAttribute('data-done')){ ad.innerHTML=adSlot('pub_popup_400x300.png'); ad.setAttribute('data-done','1'); }
+  const ad=document.getElementById('home-ad'); if(ad && !ad.getAttribute('data-done')){ ad.innerHTML=adSlot('pub_popup_400x300.png'); ad.setAttribute('data-done','1'); _pushAds(); }
 }
 
 function init(){renderHomeGrid();updateProgress();renderHub();}
@@ -2139,16 +2170,40 @@ const GALOP_PHOTOS = [
 ];
 
 // Grand emplacement publicitaire réservé (inséré entre les sections de la liste)
+/* ===== PUBLICITÉ : AdSense (à activer avec ton identifiant) ===== */
+const ADSENSE_CLIENT = "";  /* colle ici "ca-pub-XXXXXXXXXXXXXXXX" une fois AdSense approuvé */
+const ADSENSE_SLOT   = "";  /* identifiant du bloc d'annonce (facultatif) */
+if (ADSENSE_CLIENT) {
+  var _ad = document.createElement('script');
+  _ad.async = true;
+  _ad.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ADSENSE_CLIENT;
+  _ad.crossOrigin = 'anonymous';
+  document.head.appendChild(_ad);
+}
+function _pushAds(){
+  if (!ADSENSE_CLIENT) return;
+  document.querySelectorAll('ins.adsbygoogle:not([data-pushed])').forEach(function(ins){
+    ins.setAttribute('data-pushed','1');
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+  });
+}
+
 function adSlot(img){
-  return `<div class="ad-slot ad-large">
-      <div class="ad-placeholder">
-        <span class="ad-ico">🐎</span>
-        <strong>Votre marque ici</strong>
-        <span>Touchez les jeunes cavaliers et leurs familles.<br>Espace partenaire premium 300×250</span>
-        <span class="ad-cta">Devenir partenaire</span>
-      </div>
-      <img src="${img}" alt="Publicité" loading="lazy" style="position:absolute;inset:0;height:100%" onerror="this.remove()">
-    </div>`;
+  if (ADSENSE_CLIENT) {
+    return '<div class="ad-slot ad-large"><ins class="adsbygoogle" style="display:block;width:100%;min-height:250px"' +
+      ' data-ad-client="' + ADSENSE_CLIENT + '"' + (ADSENSE_SLOT ? (' data-ad-slot="' + ADSENSE_SLOT + '"') : '') +
+      ' data-ad-format="auto" data-full-width-responsive="true"></ins></div>';
+  }
+  return '<div class="ad-slot ad-large">' +
+      '<button class="ad-partner-btn" onclick="openPartnerModal()">Devenir partenaire</button>' +
+      '<div class="ad-placeholder">' +
+        '<span class="ad-ico">🐎</span>' +
+        '<strong>Votre marque ici</strong>' +
+        '<span>Touchez les jeunes cavaliers et leurs familles.<br>Espace partenaire premium 300×250</span>' +
+        '<span class="ad-cta">Devenir partenaire</span>' +
+      '</div>' +
+      '<img src="' + img + '" alt="Publicité" loading="lazy" style="position:absolute;inset:0;height:100%" onerror="this.remove()">' +
+    '</div>';
 }
 
 function renderHomeGrid(){
@@ -2168,7 +2223,7 @@ function renderHomeGrid(){
       +`</button>`);
     if(idx===3) parts.push(`<div class="galop-ad">${adSlot('pub_bandeau_mobile_320x50.png')}</div>`);
   });
-  el.innerHTML=parts.join('');
+  el.innerHTML=parts.join(''); _pushAds();
 }
 
 function updateProgress(){
@@ -2440,6 +2495,26 @@ localStorage.setItem = function(key, value){
   if(key === "galopPro") _saveCloudProgress();
 };
 
+function openPartnerModal(){ var m=document.getElementById('partner-modal'); if(m) m.classList.add('open'); }
+function closePartnerModal(){ var m=document.getElementById('partner-modal'); if(m) m.classList.remove('open'); }
+async function submitPartnerLead(){
+  const name=document.getElementById('pl-name').value.trim();
+  const company=document.getElementById('pl-company').value.trim();
+  const email=document.getElementById('pl-email').value.trim();
+  const budget=document.getElementById('pl-budget').value;
+  const message=document.getElementById('pl-message').value.trim();
+  const msg=document.getElementById('pl-msg');
+  if(!company || !email){ msg.className='auth-msg err'; msg.textContent='Indique au moins l\'entreprise et un email.'; return; }
+  if(!SUPA_READY){ msg.className='auth-msg err'; msg.textContent='Service momentanément indisponible.'; return; }
+  try{
+    const r = await sb.from('partner_leads').insert({ name:name, company:company, email:email, budget:budget, message:message });
+    if(r.error) throw r.error;
+    msg.className='auth-msg ok'; msg.textContent='Merci ! Votre demande a bien été envoyée. 🎉';
+    if(typeof launchConfetti==='function') launchConfetti(40);
+    ['pl-name','pl-company','pl-email','pl-message'].forEach(function(id){ var e=document.getElementById(id); if(e) e.value=''; });
+    setTimeout(closePartnerModal, 1800);
+  }catch(e){ msg.className='auth-msg err'; msg.textContent='Erreur : '+e.message; }
+}
 function openAuthModal(title, subtitle){
   const t = document.getElementById('auth-modal-title');
   const s = document.getElementById('auth-modal-subtitle');
