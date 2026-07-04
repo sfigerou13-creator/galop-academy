@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galop 3 — Cours complet</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:#FFF9F0;color:#2C3E50;display:flex;min-height:100vh;}
+nav{width:260px;min-width:260px;background:linear-gradient(180deg,#4facfe,#00f2fe);color:white;padding:20px;position:sticky;top:0;height:100vh;overflow-y:auto;}
+nav h2{font-size:1.05em;margin-bottom:16px;opacity:.9;}
+nav a{display:block;color:rgba(255,255,255,.8);text-decoration:none;padding:7px 10px;border-radius:8px;margin-bottom:4px;font-size:.86em;transition:background .2s;}
+nav a:hover,nav a.active{background:rgba(255,255,255,.2);color:white;}
+.back-link{background:rgba(255,255,255,.15)!important;color:white!important;font-weight:700!important;text-align:center;margin-bottom:18px!important;font-size:.88em!important;}
+main{flex:1;padding:30px;max-width:860px;}
+h1{font-size:2em;color:#00f2fe;margin-bottom:6px;}
+.badge{display:inline-block;background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;border-radius:50px;padding:4px 16px;font-size:.85em;margin-bottom:24px;}
+section{margin-bottom:40px;scroll-margin-top:20px;}
+h2{font-size:1.35em;color:#0077cc;border-bottom:3px solid #eee;padding-bottom:8px;margin-bottom:16px;}
+h3{font-size:1.1em;color:#00f2fe;margin:16px 0 9px;}
+h4{font-size:1em;color:#0077cc;margin:12px 0 7px;}
+p{line-height:1.8;color:#333;margin-bottom:11px;font-size:.95em;}
+ul,ol{padding-left:22px;margin-bottom:13px;}
+li{margin-bottom:6px;line-height:1.7;font-size:.95em;color:#333;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9em;}
+th{background:#00f2fe;color:white;padding:9px 12px;text-align:left;}
+td{padding:8px 12px;border-bottom:1px solid #eee;}
+tr:nth-child(even) td{background:#f9f9ff;}
+.r{background:#FFF3CD;border-left:5px solid #F9CA24;border-radius:8px;padding:13px 17px;margin:14px 0;}
+.r b{color:#856404;display:block;margin-bottom:5px;}
+.i{background:#E8F4FD;border-left:5px solid #54A0FF;border-radius:8px;padding:13px 17px;margin:14px 0;}
+.i b{color:#1a6fa8;display:block;margin-bottom:5px;}
+.w{background:#FFF0F0;border-left:5px solid #EF4444;border-radius:8px;padding:13px 17px;margin:14px 0;}
+.w b{color:#C0392B;display:block;margin-bottom:5px;}
+.g{background:#EAFAF1;border-left:5px solid #2ECC71;border-radius:8px;padding:13px 17px;margin:14px 0;}
+.g b{color:#1A8C4E;display:block;margin-bottom:5px;}
+.nav-bottom{display:flex;gap:10px;justify-content:flex-end;margin-top:30px;padding-top:20px;border-top:2px solid #eee;flex-wrap:wrap;}
+@media(max-width:700px){body{flex-direction:column;}nav{width:100%;height:auto;position:relative;}main{padding:18px;}}
+</style></head>
+<body>
+<nav>
+<a href="../galops_app.html" class="back-link">🏠 Retour à l'accueil</a>
+<h2>🌟 Galop 3 — Cours complet</h2>
+
+<a href="#anatomie3">1. Anatomie musculaire</a>
+<a href="#squelette">2. Le squelette</a>
+<a href="#locomotion">3. Biomécanique</a>
+<a href="#pathologies">4. Pathologies courantes</a>
+<a href="#alimentation3">5. Nutrition sportive</a>
+<a href="#travail3">6. Travail et dressage</a>
+<a href="#obstacles">7. Introduction au saut</a>
+<a href="#regles">8. Règles FFE</a>
+<a href="#ethologie">9. Éthologie</a>
+<a href="#environnement">10. Environnement et bien-être</a>
+
+</nav>
+<main>
+<h1>🌟 Galop 3 — Cours complet</h1>
+<div class="badge">🌟 Programme FFE — Galop 3</div>
+
+<section id="anatomie3">
+<h2>1. Anatomie musculaire</h2>
+<h3>Les grands groupes musculaires</h3>
+<p>La connaissance des muscles permet de comprendre le mouvement du cheval, d'identifier les zones de tension et d'adapter l'entraînement. Les muscles se contractent par paires antagonistes : quand le fléchisseur se contracte, l'extenseur se relâche.</p>
+<h4>Muscles de l'encolure :</h4>
+<ul>
+<li><strong>Ligament nuchal :</strong> ligament élastique allant de la nuque au garrot. Permet au cheval de porter la tête basse sans effort musculaire (pâture). Point d'ancrage pour les muscles.</li>
+<li><strong>Rhomboïde et trapèze :</strong> relient l'encolure au dos, stabilisent le garrot.</li>
+<li><strong>Muscle brachiocéphalique :</strong> tire l'antérieur en avant lors de la locomotion.</li>
+</ul>
+<h4>Muscles du dos et des reins :</h4>
+<ul>
+<li><strong>Long dorsal :</strong> muscle longiligne du dos, de la croupe aux côtes. Transmetteur de l'impulsion des postérieurs.</li>
+<li><strong>Iliopsoas :</strong> fléchisseur de la hanche. Essentiel pour l'engagement des postérieurs.</li>
+<li><strong>Muscles abdominaux :</strong> « cadre du dessous » — s'opposent aux muscles du dos pour la stabilité du rachis.</li>
+</ul>
+<h4>Muscles de la croupe :</h4>
+<ul>
+<li><strong>Fessiers :</strong> extension de la hanche. Clé de la propulsion.</li>
+<li><strong>Biceps fémoral, semi-tendineux :</strong> extenseurs de l'arrière-train. Très développés chez les chevaux de galop et de saut.</li>
+</ul>
+
+<h3>La chaîne musculaire du dos</h3>
+<p>Le dos du cheval fonctionne comme un <strong>pont</strong> suspendu entre les quatre membres. Le dos doit être souple et mobile pour transmettre l'impulsion des postérieurs vers les antérieurs. Un dos bloqué (raide) produit des allures plates, sans rebond, et peut causer des douleurs.</p>
+<div class="g"><b>✅ Principe fondamental :</b> Un cheval qui travaille correctement oscille le dos de bas en haut à chaque foulée. Ce mouvement de balancier est visible : le garrot monte et descend légèrement. Si le dos est bloqué, l'animal est « sur le dos » et non « dans le dos ».</div>
+
+<h3>Les tendons et ligaments</h3>
+<p>Les tendons relient les muscles aux os. Ils sont peu vascularisés et guérissent lentement en cas de blessure (des mois à des années).</p>
+<ul>
+<li><strong>Tendons fléchisseurs (derrière le canon) :</strong> fléchisseur superficiel et fléchisseur profond. Les plus souvent blessés.</li>
+<li><strong>Ligament suspenseur du boulet :</strong> soutient le boulet lors des appuis à grande vitesse.</li>
+<li><strong>Tendon extenseur (devant le canon) :</strong> moins sollicité, rarement blessé.</li>
+</ul>
+<div class="w"><b>⚠️ Tendinite :</b> Chaleur + douleur + gonflement sur l'arrière du canon = suspicion de tendinite. Urgence vétérinaire. Traitement : repos long (6-18 mois), cryothérapie, AINS, rééducation progressive.</div>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>Long dorsal = muscle clé de la transmission de l'impulsion</li>
+<li>Abdominaux = « soutien » du dos du cheval</li>
+<li>Tendons fléchisseurs derrière le canon = les plus vulnérables</li>
+<li>Guérison d'une tendinite : 6 à 18 mois</li>
+</ul></div>
+</section>
+
+<section id="squelette">
+<h2>2. Le squelette</h2>
+<h3>Structure osseuse générale</h3>
+<p>Le squelette du cheval comprend environ <strong>205 os</strong>. Il est divisé en :</p>
+<ul>
+<li><strong>Squelette axial :</strong> crâne, colonne vertébrale (7 cervicales, 18 thoraciques, 6 lombaires, 5 sacrées, 15-21 coccygiennes), côtes (18 paires), sternum</li>
+<li><strong>Squelette appendiculaire :</strong> membres antérieurs et postérieurs</li>
+</ul>
+
+<h3>La colonne vertébrale</h3>
+<table>
+<tr><th>Région</th><th>Nombre</th><th>Rôle</th></tr>
+<tr><td>Cervicales</td><td>7</td><td>Mobilité de l'encolure, port de tête</td></tr>
+<tr><td>Thoraciques</td><td>18</td><td>Zones de la selle, peu mobiles</td></tr>
+<tr><td>Lombaires</td><td>6</td><td>Reins, transmission de l'impulsion. Peu mobiles — zone sensible.</td></tr>
+<tr><td>Sacrées</td><td>5 (soudées)</td><td>Sacrum, liaison pelvis-colonne</td></tr>
+<tr><td>Coccygiennes</td><td>15-21</td><td>Queue</td></tr>
+</table>
+
+<h3>Les os des membres</h3>
+<h4>Membre antérieur (de haut en bas) :</h4>
+<p>Omoplate → Humérus → Radius + Cubitus → Carpe (8 os) → Métacarpe principal (canon) → Phalange 1 (paturon) → Phalange 2 (couronne) → Phalange 3 (3e phalange, dans le sabot) + os naviculaire</p>
+<h4>Membre postérieur :</h4>
+<p>Ilion + ischion + pubis (bassin) → Fémur → Tibia + Fibula → Tarse (jarret, 6 os) → Métatarse → Phalanges 1-3</p>
+
+<h3>Les articulations clés</h3>
+<ul>
+<li><strong>Boulet :</strong> articulation métatarso-phalangienne. Très sollicitée, risque d'osthéo-arthrose avec l'âge.</li>
+<li><strong>Jarret :</strong> équivalent cheville humaine. Point de fragilité fréquent (éparvin, jarde, courbe).</li>
+<li><strong>Grasset :</strong> équivalent genou humain. Contient la rotule (patella).</li>
+<li><strong>Naviculaire :</strong> petit os derrière la 3e phalange. Pathologie courante : syndrome naviculaire.</li>
+</ul>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>205 os environ</li>
+<li>7 vertèbres cervicales (comme l'humain !) mais beaucoup plus grandes</li>
+<li>18 paires de côtes</li>
+<li>Boulet = 1re phalange. Paturon = 2e. Sabot = 3e phalange.</li>
+</ul></div>
+</section>
+
+<section id="locomotion">
+<h2>3. Biomécanique de la locomotion</h2>
+<h3>L'impulsion</h3>
+<p>L'impulsion est l'énergie générée par les muscles de l'arrière-main qui propulse le cheval vers l'avant. Elle naît dans les postérieurs, traverse le dos et se diffuse vers les antérieurs. Une bonne impulsion donne des allures rebondissantes et des transitions faciles.</p>
+<p>L'impulsion ne doit pas être confondue avec la vitesse : un cheval peut aller vite sans impulsion (galopant « en avant-main ») ou avoir beaucoup d'impulsion en restant lent (rassemblé).</p>
+
+<h3>La mise en main et la décontraction</h3>
+<p>Un cheval travaille correctement quand il est <strong>décontracté</strong> (détendu, sans tension musculaire) et <strong>en contact</strong> avec la main du cavalier (ni trop tendu, ni trop lâche sur les rênes).</p>
+<ul>
+<li><strong>Cheval ramené :</strong> encolure fléchie à la nuque, front vertical. La nuque est le point le plus haut. Demandé en dressage.</li>
+<li><strong>Cheval encapuchonné :</strong> tête derrière la verticale — problème ! Perd le contact avec le mors, difficile à diriger.</li>
+<li><strong>Cheval sur l'épaule :</strong> poids en avant, tête haute et encolure droite. Peu d'engagement des postérieurs.</li>
+</ul>
+
+<h3>La rectitude</h3>
+<p>Un cheval est « droit » quand ses postérieurs suivent exactement la trace des antérieurs correspondants. Beaucoup de chevaux sont naturellement crochus (postérieurs légèrement décalés). Le travail équestre vise à redresser le cheval.</p>
+
+<h3>La mise en avant et l'arrêt</h3>
+<p>La règle fondamentale : <strong>jambes en avant, mains en arrière</strong> (pour avancer : jambes ; pour ralentir : dos + mains SANS cesser d'utiliser les jambes). Un cheval qui reçoit les jambes doit avancer ; s'il n'obéit pas, correction légère de la cravache derrière la jambe.</p>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>Impulsion ≠ vitesse (un cheval rassemblé peut avoir beaucoup d'impulsion lentement)</li>
+<li>Nuque = point le plus haut quand le cheval est « ramené » correctement</li>
+<li>Encapuchonné = tête derrière la verticale = erreur</li>
+<li>Rectitude = postérieurs suivent les antérieurs</li>
+</ul></div>
+</section>
+
+<section id="pathologies">
+<h2>4. Pathologies courantes du Galop 3</h2>
+<h3>Pathologies des membres</h3>
+<table>
+<tr><th>Pathologie</th><th>Localisation</th><th>Signes</th><th>Cause fréquente</th></tr>
+<tr><td>Éparvin</td><td>Jarret (face interne)</td><td>Gonflement dur, boiterie trot</td><td>Arthrose, chocs</td></tr>
+<tr><td>Jarde</td><td>Jarret (face externe)</td><td>Gonflement dur, parfois boiterie</td><td>Chocs directs</td></tr>
+<tr><td>Courbe</td><td>Jarret (face postérieure)</td><td>Gonflement mou, boiterie</td><td>Effort intense</td></tr>
+<tr><td>Molette</td><td>Boulet (anneau)</td><td>Gonflement mou autour du boulet</td><td>Surmenage, terrain dur</td></tr>
+<tr><td>Suros</td><td>Canon (face interne)</td><td>Bosse dure sur le canon, douloureux jeune</td><td>Chocs, hérédité</td></tr>
+<tr><td>Ostéite pédieuse</td><td>Pied (3e phalange)</td><td>Boiterie sévère, chaleur du sabot</td><td>Fourbure chronique</td></tr>
+<tr><td>Syndrome naviculaire</td><td>Pied (os naviculaire)</td><td>Boiterie variable, station campe</td><td>Surmenage, aplombs défectueux</td></tr>
+</table>
+
+<h3>Pathologies respiratoires</h3>
+<ul>
+<li><strong>Pousse (SPAOD) :</strong> syndrome pulmonaire obstructif chronique. Comme l'asthme. Le cheval tousse, a du mal à expirer (bourrelet au flanc). Causé par des allergènes (foin poussièreux, litière). Traitement : foin humidifié, litière changée, bronchodilatateurs.</li>
+<li><strong>Rhino-pneumonie :</strong> infection virale (herpèsvirus). Fièvre, toux, jetage nasal. Vaccin disponible.</li>
+<li><strong>Gourme :</strong> infection bactérienne de la sphère ORL. Abcès sous la ganache. Très contagieux.</li>
+</ul>
+
+<h3>Pathologies de la peau</h3>
+<ul>
+<li><strong>Teigne :</strong> infection fongique. Zones circulaires sans poils, croûtes. Contagieux pour l'humain.</li>
+<li><strong>Gale des fanons :</strong> parasite externe (Chorioptes). Démangeaisons intenses aux membres, croûtes. Cheval tape du pied.</li>
+<li><strong>Coup de soleil (lucite) :</strong> sur les zones dépigmentées (autour des yeux, naseaux blancs). Protection solaire possible.</li>
+</ul>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>Éparvin = gonflement dur interne du jarret (arthrose)</li>
+<li>Suros = bosse dure sur le canon</li>
+<li>Pousse = asthme du cheval → foin humidifié</li>
+<li>Gourme = abcès sous la ganache, très contagieux</li>
+</ul></div>
+</section>
+
+<section id="alimentation3">
+<h2>5. Nutrition sportive</h2>
+<h3>Adapter la ration à l'effort</h3>
+<p>L'énergie utilisée lors de l'effort provient de trois filières :</p>
+<ul>
+<li><strong>Filière aérobie (oxygène) :</strong> effort long et modéré (endurance, dressage). Utilise les lipides et les glucides. Favorisée par un entraînement progressif.</li>
+<li><strong>Filière anaérobie lactique :</strong> effort intense et court (CSO, courses courtes). Produit de l'acide lactique (fatigue musculaire).</li>
+<li><strong>Filière phosphocréatine :</strong> effort très court et très intense (départ de course, saut très haut). Dure moins de 15 secondes.</li>
+</ul>
+
+<h3>Sources d'énergie</h3>
+<table>
+<tr><th>Nutriment</th><th>Source</th><th>Effort adapté</th></tr>
+<tr><td>Fibres / cellulose</td><td>Foin, herbe</td><td>Tout effort modéré, entretien</td></tr>
+<tr><td>Amidon (glucides rapides)</td><td>Céréales, granulés</td><td>Effort intense</td></tr>
+<tr><td>Lipides (graisses)</td><td>Huile de lin, tournesol</td><td>Endurance</td></tr>
+<tr><td>Protéines</td><td>Luzerne, tourteaux</td><td>Reconstruction musculaire</td></tr>
+</table>
+
+<h3>Les compléments spécifiques</h3>
+<ul>
+<li><strong>Électrolytes :</strong> sodium, potassium, chlore — perdus dans la sueur. Redonner après effort intense ou par chaleur.</li>
+<li><strong>Magnésium :</strong> réduit le stress et l'excitabilité. Utile pour les chevaux nerveux.</li>
+<li><strong>Biotine :</strong> améliore la qualité du sabot (croissance). À donner sur 6 mois minimum pour voir les effets.</li>
+<li><strong>Oméga-3 (huile de lin) :</strong> anti-inflammatoire naturel, brillance du poil, santé articulaire.</li>
+</ul>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>Endurance → filière aérobie → huile de lin + fibres</li>
+<li>CSO, accélérations → filière anaérobie → céréales</li>
+<li>Électrolytes = sodium + potassium à redonner après sueur intense</li>
+<li>Biotine pour sabots = minimum 6 mois de traitement</li>
+</ul></div>
+</section>
+
+<section id="travail3">
+<h2>6. Travail et dressage de base</h2>
+<h3>Les figures de manège principales</h3>
+<table>
+<tr><th>Figure</th><th>Description</th><th>Niveau</th></tr>
+<tr><td>Grand cercle</td><td>Cercle de 20 m</td><td>Débutant</td></tr>
+<tr><td>Petit cercle / Volte</td><td>Cercle de 6-10 m</td><td>Intermédiaire</td></tr>
+<tr><td>Diagonale</td><td>Traversée du manège en diagonale (M-K, H-F...)</td><td>Débutant</td></tr>
+<tr><td>Serpentine</td><td>Ondulations traversant le manège</td><td>Intermédiaire</td></tr>
+<tr><td>Changement de main</td><td>Passer d'une main à l'autre</td><td>Débutant</td></tr>
+<tr><td>Épaule en dedans</td><td>Mouvement latéral, cheval incurvé, croupe à la piste</td><td>Avancé</td></tr>
+<tr><td>Appuyer</td><td>Déplacement latéral oblique</td><td>Avancé</td></tr>
+</table>
+
+<h3>Les lettres du manège (60 m × 20 m)</h3>
+<p>Le grand manège standard mesure 60 m × 20 m. Les lettres permettent de repérer les points précis pour exécuter les figures :</p>
+<ul>
+<li><strong>Côté gauche (en entrant) :</strong> A (entrée), K, V, E (milieu), S, H, C (fond)</li>
+<li><strong>Côté droit :</strong> F, P, B (milieu), R, M</li>
+<li><strong>X :</strong> centre du manège (intersection des deux diagonales)</li>
+</ul>
+<div class="i"><b>💡 Mémo :</b> « A King Victor Edwards Supports His Country From Politics Before Many Rivalries » pour retenir l'ordre des lettres. Ou plus simplement, apprendre par cœur : A, K, E, H, C, M, B, F.</div>
+
+<h3>Le passage au galop</h3>
+<ul>
+<li>Bien choisir la main (galop à droite quand on tourne à droite)</li>
+<li>Préparer : reculer légèrement la jambe extérieure, raccourcir les rênes</li>
+<li>Donner l'aide : jambe extérieure en arrière de la sangle = signal de départ</li>
+<li>Récompenser immédiatement si le cheval part au bon pied</li>
+</ul>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>Manège standard : 60 m × 20 m</li>
+<li>X = centre du manège</li>
+<li>Départ au galop : jambe EXTÉRIEURE en arrière de la sangle</li>
+<li>Épaule en dedans = premier mouvement latéral</li>
+</ul></div>
+</section>
+
+<section id="obstacles">
+<h2>7. Introduction au saut d'obstacles</h2>
+<h3>Structure d'un obstacle</h3>
+<ul>
+<li><strong>Chandelles / Montants :</strong> supports verticaux</li>
+<li><strong>Barres :</strong> horizontales, posées sur les chandelles</li>
+<li><strong>Cavalettes (ou cavalettis) :</strong> barres au sol ou très basses (20-60 cm)</li>
+<li><strong>Oxer :</strong> obstacle large (deux barres espacées horizontalement)</li>
+<li><strong>Mur / Valise :</strong> obstacle plein, souvent en bois peint</li>
+<li><strong>Rivière :</strong> obstacle d'eau</li>
+<li><strong>Combiné :</strong> deux ou trois obstacles consécutifs</li>
+</ul>
+
+<h3>Les phases du saut</h3>
+<ol>
+<li><strong>Approche :</strong> 5-6 foulées avant l'obstacle. Maintenir l'impulsion et la ligne droite.</li>
+<li><strong>Réception :</strong> dernier appui avant la détente. Le cheval lève le chanfrein.</li>
+<li><strong>Détente :</strong> les postérieurs poussent fort, les antérieurs se lèvent.</li>
+<li><strong>Suspension :</strong> le cheval est en l'air, il se ramasse (arrondit son dos en arc).</li>
+<li><strong>Réception :</strong> les antérieurs touchent d'abord, amortissement.</li>
+<li><strong>Fuite :</strong> galop de sortie, retrouver l'équilibre.</li>
+</ol>
+
+<h3>La position du cavalier au saut</h3>
+<ul>
+<li>Avant l'obstacle : position de galop normale</li>
+<li>Dans la montée : incliner le buste vers l'avant (accompagner), porter les mains vers le mors</li>
+<li>En suspension : buste plié, talon enfoncé, regard loin, mains légères (ne pas tirer)</li>
+<li>À la réception : se redresser progressivement avec le cheval</li>
+</ul>
+<div class="w"><b>⚠️ Erreur fréquente :</b> Se « coucher » sur l'encolure avant que le cheval saute, ou se cramponner aux rênes en l'air. Laisser les mains suivre vers l'avant pendant la suspension (« mains de caoutchouc »).</div>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>6 phases du saut : approche → réception → détente → suspension → réception → fuite</li>
+<li>En suspension : buste en avant, mains vers le mors, talon en bas</li>
+<li>Oxer = obstacle large (2 barres)</li>
+<li>Cavalette = barre basse (travail technique)</li>
+</ul></div>
+</section>
+
+<section id="regles">
+<h2>8. Règles FFE et compétition</h2>
+<h3>La Fédération Française d'Équitation (FFE)</h3>
+<p>La FFE est l'organisme qui gère le sport équestre en France. Elle organise les compétitions, délivre les galops (niveaux de compétence du cavalier), forme les moniteurs et fixe les règles.</p>
+<ul>
+<li>Siège : Lamotte-Beuvron (Loir-et-Cher)</li>
+<li>Affiliée à la FEI (Fédération Équestre Internationale)</li>
+<li>Disciplines reconnues : CSO, Dressage, Complet (CCE), Endurance, Voltige, Attelage, Horse-ball, Polo, Reining...</li>
+</ul>
+
+<h3>Les niveaux de compétition en CSO</h3>
+<table>
+<tr><th>Niveau</th><th>Hauteur des barres</th><th>Galop correspondant</th></tr>
+<tr><td>Club 1 (C1)</td><td>40-50 cm</td><td>Galop 3-4</td></tr>
+<tr><td>Club 2 (C2)</td><td>60-70 cm</td><td>Galop 4-5</td></tr>
+<tr><td>Amateur 1 (Am1)</td><td>80-90 cm</td><td>Galop 5-6</td></tr>
+<tr><td>Amateur 2 (Am2)</td><td>95-105 cm</td><td>Galop 6-7</td></tr>
+<tr><td>Amateur 3 (Am3)</td><td>110-120 cm</td><td>Galop 7</td></tr>
+<tr><td>Poney 1-4</td><td>40 à 100 cm</td><td>Galops poneys</td></tr>
+</table>
+
+<h3>Le passeport équin</h3>
+<p>Depuis 2008, tout cheval doit avoir un <strong>document d'identification équin (DIE)</strong>, communément appelé passeport. Il contient :</p>
+<ul>
+<li>Signalement du cheval (robe, marques, description)</li>
+<li>Numéro de microchip (puce électronique dans l'encolure)</li>
+<li>Propriétaire, races</li>
+<li>Vaccinations (grippe, tétanos obligatoires pour compétitions)</li>
+<li>Traitements vétérinaires</li>
+</ul>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>FFE : Fédération Française d'Équitation, affiliée à la FEI</li>
+<li>Galop 3 → peut débuter en Club 1 (barres 40-50 cm)</li>
+<li>Passeport = document d'identité du cheval depuis 2008</li>
+<li>Microchip = dans l'encolure gauche, obligatoire</li>
+</ul></div>
+</section>
+
+<section id="ethologie">
+<h2>9. Éthologie équine</h2>
+<h3>Qu'est-ce que l'éthologie ?</h3>
+<p>L'éthologie est la science qui étudie le comportement des animaux dans leur milieu naturel. Appliquée au cheval, elle permet de comprendre ses réactions, d'améliorer la communication homme-cheval et de travailler en « douceur » en respectant le fonctionnement naturel de l'animal.</p>
+
+<h3>Communication entre chevaux</h3>
+<h4>La communication corporelle :</h4>
+<ul>
+<li><strong>Oreilles en avant :</strong> attention, curiosité. Vers un congénère = invitation au jeu ou salutations.</li>
+<li><strong>Oreilles aplaties + naseaux plissés :</strong> colère, menace. Attention !</li>
+<li><strong>Queue battant fort :</strong> irritation, mouches, ou colère</li>
+<li><strong>Queue serrée :</strong> peur, douleur</li>
+<li><strong>Tête levée + naseaux évasés :</strong> alerte, danger perçu</li>
+<li><strong>Claquement de mâchoires (chez le jeune cheval) :</strong> signe de soumission envers un dominant</li>
+</ul>
+<h4>Comportements sociaux :</h4>
+<ul>
+<li><strong>Toilettage mutuel (grooming) :</strong> deux chevaux se grattent mutuellement la crinière ou le dos avec les dents. Renforce le lien social, réduit le stress.</li>
+<li><strong>Jeu :</strong> les jeunes (poulains) jouent beaucoup (courses, morsures légères, cabrades). Le jeu développe les réflexes et la force.</li>
+<li><strong>Hiérarchie :</strong> une hiérarchie stable réduit les conflits. Les dominants mangent en premier, choisissent l'abri.</li>
+</ul>
+
+<h3>Les comportements de stress</h3>
+<ul>
+<li><strong>Stéréotypies :</strong> comportements répétitifs sans but apparent — tiquage (mordre une barre et avaler de l'air), weaving (balancement), box-walking (tourner en rond). Signes de frustration ou d'ennui.</li>
+<li><strong>Hennissements répétés :</strong> cherche un congénère, anxiété</li>
+<li><strong>Refus de manger :</strong> douleur ou stress sévère</li>
+</ul>
+<div class="i"><b>💡 Prévention des stéréotypies :</b> Sortir le cheval le plus possible, lui donner de l'espace et des contacts visuels avec d'autres chevaux, nourrir à volonté en foin. Les stéréotypies une fois installées sont très difficiles à corriger.</div>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>Éthologie = science du comportement animal</li>
+<li>Grooming mutuel = lien social fort entre chevaux</li>
+<li>Claquement de mâchoires = soumission (jeune cheval)</li>
+<li>Stéréotypies = signe de mal-être. Difficiles à supprimer une fois installées.</li>
+</ul></div>
+</section>
+
+<section id="environnement">
+<h2>10. Environnement et bien-être</h2>
+<h3>Les 5 libertés fondamentales du bien-être animal</h3>
+<ol>
+<li><strong>Absence de faim et de soif :</strong> accès à une alimentation et une eau suffisantes</li>
+<li><strong>Absence d'inconfort :</strong> environnement adapté (abri, litière propre)</li>
+<li><strong>Absence de douleur, maladie et blessure :</strong> prévention et traitement vétérinaire</li>
+<li><strong>Liberté d'expression comportementale :</strong> espace, contact social</li>
+<li><strong>Absence de peur et de détresse :</strong> conditions de vie et de manipulation qui évitent la souffrance psychologique</li>
+</ol>
+
+<h3>Les indicateurs de bien-être du cheval</h3>
+<ul>
+<li>Corps en bon état (score de condition corporelle 3/5 à 4/5 — ni trop maigre ni trop gras)</li>
+<li>Poil brillant, yeux vifs, curiosité naturelle</li>
+<li>Posture détendue (pas de tensions musculaires visibles)</li>
+<li>Relations sociales normales avec les congénères</li>
+<li>Pas de stéréotypies ni de comportements d'évitement sévères</li>
+</ul>
+
+<h3>Le score de condition corporelle (BCS)</h3>
+<table>
+<tr><th>Score</th><th>Description</th></tr>
+<tr><td>1/5</td><td>Très maigre — vertèbres, côtes et os du bassin saillants</td></tr>
+<tr><td>2/5</td><td>Maigre — côtes facilement visibles</td></tr>
+<tr><td>3/5</td><td>Correct — côtes palpables mais pas visibles, légère couverture graisseuse</td></tr>
+<tr><td>4/5</td><td>Dodu — côtes difficiles à palper, poches graisseuses</td></tr>
+<tr><td>5/5</td><td>Obèse — côtes invisibles et impalpables, dépôts graisseux importants</td></tr>
+</table>
+
+<h3>L'impact environnemental de l'écurie</h3>
+<ul>
+<li>Gestion du fumier : compostage, plans d'épandage agronomique</li>
+<li>Economies d'eau : abreuvoirs automatiques régulés</li>
+<li>Énergie : isolation des bâtiments, ventilation naturelle</li>
+<li>Biodiversité : haies bocagères autour des pâtures, prairies diversifiées</li>
+</ul>
+<div class="r"><b>📌 À retenir :</b>
+<ul>
+<li>5 libertés fondamentales : faim, inconfort, douleur, comportement, peur</li>
+<li>Score de condition corporelle idéal : 3/5</li>
+<li>Score 1/5 = malnutrition grave → urgence</li>
+<li>Poil brillant + yeux vifs = bons signes de santé</li>
+</ul></div>
+</section>
+
+<div class="nav-bottom"><a href="galop2.html" style="background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;border-radius:50px;padding:10px 22px;font-size:.9em;font-weight:700;text-decoration:none;display:inline-block;">← Galop 2</a><a href="galop4.html" style="background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;border-radius:50px;padding:10px 22px;font-size:.9em;font-weight:700;text-decoration:none;display:inline-block;">Galop 4 →</a><a href="../galops_app.html" style="background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;border-radius:50px;padding:10px 22px;font-size:.9em;font-weight:700;text-decoration:none;display:inline-block;">🏠 Accueil</a></div>
+</main>
+<script>
+const secs=document.querySelectorAll('section[id]');
+const lnks=document.querySelectorAll('nav a[href^="#"]');
+window.addEventListener('scroll',()=>{
+  let c='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-60)c=s.id;});
+  lnks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+c));
+});
+</script>
+</body></html>

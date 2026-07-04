@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galop Training — Espace Annonceurs</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f0fa; color: #2c3e50; min-height: 100vh; }
+
+  /* ── Header ── */
+  .portal-header { background: linear-gradient(135deg,#764ba2,#667eea); color:#fff; padding:18px 24px; display:flex; align-items:center; gap:14px; }
+  .portal-header .logo { font-size:1.8em; }
+  .portal-header h1 { font-size:1.2em; font-weight:700; }
+  .portal-header p  { font-size:.8em; opacity:.85; }
+
+  /* ── Layout ── */
+  .container { max-width:860px; margin:0 auto; padding:24px 16px; }
+  .card { background:#fff; border-radius:16px; box-shadow:0 2px 16px rgba(0,0,0,.08); padding:24px; margin-bottom:20px; }
+  .card h2 { font-size:1.1em; color:#764ba2; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+
+  /* ── Tabs ── */
+  .tabs { display:flex; gap:4px; background:#f0e8ff; border-radius:12px; padding:4px; margin-bottom:20px; }
+  .tab-btn { flex:1; padding:9px; border:none; border-radius:9px; background:transparent; font-size:.9em; font-weight:600; color:#888; cursor:pointer; transition:.2s; }
+  .tab-btn.active { background:#fff; color:#764ba2; box-shadow:0 1px 6px rgba(0,0,0,.1); }
+
+  /* ── Forms ── */
+  label { font-size:.85em; font-weight:600; color:#555; display:block; margin:10px 0 3px; }
+  input[type=text], input[type=email], input[type=url], input[type=password], select, textarea {
+    width:100%; padding:10px 12px; border:1.5px solid #ddd; border-radius:9px;
+    font-size:.9em; color:#2c3e50; transition:.2s; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:#764ba2; }
+  textarea { resize:vertical; min-height:60px; }
+  .btn { padding:11px 22px; border:none; border-radius:10px; font-size:.92em; font-weight:700; cursor:pointer; transition:.2s; }
+  .btn-primary { background:linear-gradient(135deg,#764ba2,#667eea); color:#fff; width:100%; margin-top:12px; }
+  .btn-primary:hover { opacity:.9; }
+  .btn-secondary { background:#f0e8ff; color:#764ba2; }
+  .btn-danger { background:#fee; color:#c0392b; }
+  .row { display:flex; gap:12px; flex-wrap:wrap; }
+  .col { flex:1; min-width:200px; }
+  .hint { font-size:.75em; color:#999; margin-top:3px; }
+  .msg { padding:10px 14px; border-radius:9px; font-size:.88em; margin:10px 0; display:none; }
+  .msg.success { background:#eafaf1; color:#1e8449; border:1px solid #a9dfbf; display:block; }
+  .msg.error   { background:#fee; color:#c0392b; border:1px solid #f5b7b1; display:block; }
+  .msg.info    { background:#eaf4fb; color:#1a5276; border:1px solid #aed6f1; display:block; }
+
+  /* ── BAT Specs ── */
+  .spec-grid { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; }
+  .spec-box { flex:1; min-width:220px; border:2px dashed #c39bd3; border-radius:12px; padding:14px; text-align:center; }
+  .spec-box .format-name { font-weight:700; color:#764ba2; font-size:1em; margin-bottom:6px; }
+  .spec-box .dims { font-size:1.4em; font-weight:700; color:#2c3e50; margin:6px 0; }
+  .spec-box ul { list-style:none; font-size:.78em; color:#666; text-align:left; margin-top:8px; }
+  .spec-box ul li::before { content:"• "; color:#764ba2; }
+  .preview-banner { width:100%; height:40px; background:linear-gradient(90deg,#f39c12,#e67e22); border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:.72em; font-weight:700; margin-top:10px; }
+  .preview-popup  { width:100%; height:80px; background:linear-gradient(135deg,#667eea,#764ba2); border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:.72em; font-weight:700; margin-top:10px; }
+
+  /* ── Ad Preview ── */
+  .ad-preview-wrap { background:#f8f8f8; border-radius:12px; padding:14px; margin-top:14px; }
+  .ad-preview-wrap h4 { font-size:.82em; color:#888; margin-bottom:8px; }
+  .ad-banner-preview { display:flex; align-items:center; gap:10px; background:#fffbe6; border:1.5px solid #f39c12; border-radius:10px; padding:9px 12px; }
+  .ad-banner-preview img, .ad-logo-circle { width:38px; height:38px; border-radius:7px; object-fit:cover; flex-shrink:0; }
+  .ad-logo-circle { background:#f39c12; display:flex; align-items:center; justify-content:center; font-size:1.3em; }
+  .ad-banner-preview .ad-text strong { display:block; font-size:.85em; color:#2c3e50; }
+  .ad-banner-preview .ad-text span { font-size:.75em; color:#888; }
+  .ad-banner-preview .ad-tag { margin-left:auto; font-size:.62em; color:#aaa; border:1px solid #ddd; border-radius:4px; padding:2px 5px; }
+  .ad-popup-preview { margin-top:10px; border-radius:10px; overflow:hidden; border:2px solid #764ba2; max-width:320px; margin-left:auto; margin-right:auto; }
+  .ad-popup-preview img { width:100%; display:block; }
+  .ad-popup-preview .popup-footer { background:#764ba2; color:#fff; font-size:.78em; padding:8px 12px; display:flex; justify-content:space-between; align-items:center; }
+  .ad-popup-preview .popup-footer a { color:#ffd; font-size:.9em; }
+
+  /* ── Status badge ── */
+  .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:.75em; font-weight:700; }
+  .badge.active   { background:#eafaf1; color:#1e8449; }
+  .badge.pending  { background:#fef9e7; color:#d68910; }
+  .badge.inactive { background:#fee; color:#c0392b; }
+
+  /* ── My Ads table ── */
+  .ad-row { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f0f0f0; }
+  .ad-row:last-child { border-bottom:none; }
+  .ad-row .ad-thumb { width:50px; height:28px; border-radius:5px; object-fit:cover; background:#eee; flex-shrink:0; }
+
+  /* ── Upload zone ── */
+  .upload-zone { border:2px dashed #c39bd3; border-radius:12px; padding:20px; text-align:center; cursor:pointer; transition:.2s; background:#faf6ff; }
+  .upload-zone:hover { border-color:#764ba2; background:#f0e8ff; }
+  .upload-zone input { display:none; }
+  .upload-zone .ico { font-size:2em; margin-bottom:6px; }
+  .upload-zone p { font-size:.82em; color:#888; }
+  .upload-zone .or { color:#bbb; margin:6px 0; font-size:.8em; }
+
+  /* ── Sections ── */
+  .section-block { display:none; }
+  .section-block.active { display:block; }
+
+  /* ── Responsive ── */
+  @media(max-width:520px) { .row { flex-direction:column; } .spec-grid { flex-direction:column; } }
+
+  .pay-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: .2s;
+    letter-spacing: .3px;
+  }
+  .pay-btn:hover { opacity: .88; transform: translateY(-1px); }
+  .pay-btn:disabled { opacity: .5; cursor: wait; }
+  .pack-price { font-size: 2em; font-weight: 800; color: #764ba2; }
+  .pack-price span { font-size: .5em; font-weight: 400; color: #888; }
+
+</style>
+</head>
+<body>
+
+<!-- ══ SETUP NOTICE (à supprimer une fois la clé configurée) ══ -->
+<div id="setup-notice" style="background:#fff3cd;border-bottom:2px solid #f39c12;padding:12px 20px;font-size:.85em;color:#856404;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+  <span style="font-size:1.3em">⚙️</span>
+  <strong>Configuration requise :</strong> Pour recevoir les emails d'inscription,
+  <a href="https://web3forms.com/" target="_blank" style="color:#764ba2;font-weight:700">obtenez votre clé gratuite sur web3forms.com</a>
+  (entrez <strong>sfigerou13@gmail.com</strong> → cliquez "Get your Access Key") puis remplacez
+  <code style="background:#f8d7da;padding:1px 5px;border-radius:4px">VOTRE_CLE_WEB3FORMS</code>
+  dans le code du portail (chercher <code>access_key</code>).
+  <button onclick="document.getElementById('setup-notice').style.display='none'"
+    style="margin-left:auto;border:none;background:#f39c12;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-weight:700">✕ Masquer</button>
+</div>
+
+
+<div class="portal-header">
+  <div class="logo">🏇</div>
+  <div>
+    <h1>Galop Training — Espace Annonceurs</h1>
+    <p>Gérez vos publicités auprès de nos cavaliers</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('inscription')">📝 Inscription</button>
+    <button class="tab-btn" onclick="showTab('connexion')">🔑 Connexion</button>
+    <button class="tab-btn" onclick="showTab('bat')">🎨 Cadre graphique BAT</button>
+  </div>
+
+  <!-- ══════════════════ TAB : INSCRIPTION ══════════════════ -->
+  <div id="tab-inscription" class="section-block active">
+
+    <div class="card">
+      <h2>📝 Créer votre espace annonceur</h2>
+      <p style="font-size:.85em;color:#666;margin-bottom:14px">Après votre inscription, vous recevrez un email de confirmation. Votre accès sera activé sous 24h.</p>
+
+      <div id="msg-inscription" class="msg"></div>
+
+      <div class="row">
+        <div class="col">
+          <label>Nom de votre société *</label>
+          <input type="text" id="reg-company" placeholder="Ex : Sellerie du Cheval Blanc" />
+        </div>
+        <div class="col">
+          <label>Votre nom *</label>
+          <input type="text" id="reg-name" placeholder="Prénom Nom" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label>Email professionnel *</label>
+          <input type="email" id="reg-email" placeholder="contact@votresociete.fr" />
+        </div>
+        <div class="col">
+          <label>Téléphone</label>
+          <input type="text" id="reg-phone" placeholder="+33 6 00 00 00 00" />
+        </div>
+      </div>
+
+      <label>Site web</label>
+      <input type="url" id="reg-url" placeholder="https://votresociete.fr" />
+
+      <label>Pack souhaité *</label>
+      <select id="reg-pack">
+        <option value="">-- Choisissez un pack --</option>
+        <optgroup label="Pack Local (~20 km)">
+          <option value="local-bandeau">Bandeau — 49 €/mois</option>
+          <option value="local-popup">Popup interstitiel — 79 €/mois</option>
+          <option value="local-complet">Pack Complet (bandeau + popup) — 129 €/mois</option>
+        </optgroup>
+        <optgroup label="Pack National / International">
+          <option value="nat-fr">France (67M hab.) — 558 €/mois</option>
+          <option value="nat-de">Allemagne (84M hab.) — 700 €/mois</option>
+          <option value="nat-es">Espagne (47M hab.) — 392 €/mois</option>
+          <option value="nat-it">Italie (60M hab.) — 500 €/mois</option>
+          <option value="nat-uk">Royaume-Uni (67M hab.) — 558 €/mois</option>
+          <option value="nat-eu">Europe entière (450M hab.) — 3 750 €/mois</option>
+        </optgroup>
+      </select>
+
+      <label>Message (optionnel)</label>
+      <textarea id="reg-message" placeholder="Zone géographique précise, questions, besoins spécifiques..."></textarea>
+
+      <button class="btn btn-primary" onclick="submitInscription()">Envoyer ma demande d'inscription →</button>
+      <p style="font-size:.75em;color:#aaa;text-align:center;margin-top:8px">Vous recevrez un email avec vos identifiants sous 24h</p>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════ TAB : CONNEXION ══════════════════ -->
+  <div id="tab-connexion" class="section-block">
+
+    <!-- Login form -->
+    <div id="login-form-wrap">
+      <div class="card">
+        <h2>🔑 Accéder à votre espace</h2>
+        <div id="msg-login" class="msg"></div>
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="votre@email.fr" />
+        <label>Code d'accès (reçu par email)</label>
+        <input type="text" id="login-code" placeholder="ADV-XXXX-XXXX" style="letter-spacing:.1em;font-family:monospace;font-size:1em" />
+        <button class="btn btn-primary" onclick="doLogin()">Se connecter →</button>
+        <p style="font-size:.78em;color:#aaa;text-align:center;margin-top:10px">Pas encore de code ? <a href="#" onclick="showTab('inscription');return false" style="color:#764ba2">Inscrivez-vous</a></p>
+      </div>
+    </div>
+
+    <!-- Dashboard (shown after login) -->
+    <div id="dashboard-wrap" style="display:none">
+
+      <div class="card" style="background:linear-gradient(135deg,#764ba2,#667eea);color:#fff;padding:16px 20px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:.8em;opacity:.8">Connecté en tant que</div>
+            <div style="font-weight:700;font-size:1.1em" id="dash-company">—</div>
+            <div style="font-size:.8em;opacity:.8" id="dash-pack">—</div>
+          </div>
+          <div>
+            <span class="badge active" id="dash-status">Actif</span>
+            <button class="btn btn-secondary" style="margin-left:8px;font-size:.78em;padding:5px 12px" onclick="doLogout()">Déconnexion</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANDEAU -->
+      <div class="card" id="section-bandeau" style="display:none">
+        <h2>🖼️ Votre bandeau publicitaire</h2>
+        <p style="font-size:.82em;color:#666;margin-bottom:12px">Format requis : <strong>728 × 90 px</strong> — PNG/JPG/GIF — max 500 Ko<br>Version mobile : <strong>320 × 50 px</strong> (optionnel, recommandé)</p>
+
+        <div class="upload-zone" onclick="document.getElementById('upload-banner').click()">
+          <input type="file" id="upload-banner" accept="image/*" onchange="handleUpload('banner',this)" />
+          <div class="ico">🖼️</div>
+          <p><strong>Cliquez pour uploader votre BAT bandeau</strong></p>
+          <p>728×90 px — PNG, JPG ou GIF animé</p>
+          <div class="or">— ou —</div>
+          <p>Glissez votre fichier ici</p>
+        </div>
+
+        <div id="banner-uploaded" style="display:none;margin-top:10px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:.85em;color:#1e8449">
+            <span>✅</span> <span id="banner-filename"></span>
+            <button class="btn btn-danger" style="font-size:.75em;padding:3px 8px;margin-left:auto" onclick="removeUpload('banner')">Supprimer</button>
+          </div>
+          <img id="banner-preview-img" style="width:100%;max-width:728px;height:auto;margin-top:8px;border-radius:6px;border:1px solid #eee" />
+        </div>
+
+        <label style="margin-top:14px">URL de destination (lien cliquable)</label>
+        <input type="url" id="banner-url" placeholder="https://votresociete.fr" />
+        <div class="hint">L'utilisateur sera redirigé ici en cliquant sur votre bandeau</div>
+
+        <label>Tagline / texte alternatif</label>
+        <input type="text" id="banner-tagline" placeholder="Ex : Sellerie du Cheval Blanc — Matériel haut de gamme" maxlength="80" />
+        <div class="hint">Affiché si l'image ne charge pas (max 80 caractères)</div>
+
+        <div class="ad-preview-wrap">
+          <h4>Aperçu dans l'application :</h4>
+          <div class="ad-banner-preview">
+            <div class="ad-logo-circle" id="prev-banner-logo">🏇</div>
+            <div class="ad-text">
+              <strong id="prev-banner-name">Votre société</strong>
+              <span id="prev-banner-tag">Votre tagline</span>
+            </div>
+            <span class="ad-tag">Pub</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="saveAd('bandeau')">💾 Enregistrer le bandeau</button>
+        <div id="msg-bandeau" class="msg"></div>
+      </div>
+
+      <!-- POPUP -->
+      <div class="card" id="section-popup" style="display:none">
+        <h2>🪟 Votre popup interstitiel</h2>
+        <p style="font-size:.82em;color:#666;margin-bottom:12px">Format requis : <strong>400 × 300 px</strong> — PNG/JPG/GIF — max 1 Mo<br>Zone de sécurité : marges de <strong>20 px</strong> sur tous les bords</p>
+
+        <div class="upload-zone" onclick="document.getElementById('upload-popup').click()">
+          <input type="file" id="upload-popup" accept="image/*" onchange="handleUpload('popup',this)" />
+          <div class="ico">🪟</div>
+          <p><strong>Cliquez pour uploader votre BAT popup</strong></p>
+          <p>400×300 px — PNG, JPG ou GIF animé</p>
+          <div class="or">— ou —</div>
+          <p>Glissez votre fichier ici</p>
+        </div>
+
+        <div id="popup-uploaded" style="display:none;margin-top:10px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:.85em;color:#1e8449">
+            <span>✅</span> <span id="popup-filename"></span>
+            <button class="btn btn-danger" style="font-size:.75em;padding:3px 8px;margin-left:auto" onclick="removeUpload('popup')">Supprimer</button>
+          </div>
+          <div class="ad-popup-preview" style="margin-top:8px">
+            <img id="popup-preview-img" style="width:100%;display:block" />
+            <div class="popup-footer">
+              <span id="prev-popup-company">Votre société</span>
+              <a href="#" id="prev-popup-link" onclick="return false">Visiter →</a>
+            </div>
+          </div>
+        </div>
+
+        <label style="margin-top:14px">URL de destination</label>
+        <input type="url" id="popup-url" placeholder="https://votresociete.fr" />
+
+        <label>Texte du bouton popup</label>
+        <input type="text" id="popup-cta" placeholder="Ex : Découvrir notre sellerie" maxlength="40" />
+
+        <button class="btn btn-primary" onclick="saveAd('popup')">💾 Enregistrer le popup</button>
+        <div id="msg-popup" class="msg"></div>
+      </div>
+
+      <!-- Infos société -->
+      <div class="card">
+        <h2>🏢 Vos informations</h2>
+        <div class="row">
+          <div class="col">
+            <label>Nom de la société</label>
+            <input type="text" id="info-company" />
+          </div>
+          <div class="col">
+            <label>Site web</label>
+            <input type="url" id="info-url" />
+          </div>
+        </div>
+        <label>Email de contact</label>
+        <input type="email" id="info-email" />
+        <button class="btn btn-primary" onclick="saveInfo()">💾 Mettre à jour</button>
+        <div id="msg-info" class="msg"></div>
+      </div>
+
+    </div><!-- /dashboard-wrap -->
+  </div>
+
+  <!-- ══════════════════ TAB : BAT SPECS ══════════════════ -->
+  <div id="tab-bat" class="section-block">
+    <div class="card">
+      <h2>🎨 Cadre graphique — Spécifications BAT</h2>
+      <p style="font-size:.85em;color:#666;margin-bottom:16px">
+        Tous vos visuels doivent respecter ces dimensions exactes. Les fichiers hors format seront recadrés automatiquement.
+      </p>
+
+      <div class="spec-grid">
+
+        <div class="spec-box">
+          <div class="format-name">🖥️ Bandeau Desktop</div>
+          <div class="dims">728 × 90 px</div>
+          <div class="preview-banner">VOTRE PUBLICITÉ ICI — 728×90</div>
+          <ul>
+            <li>Format : PNG, JPG ou GIF animé</li>
+            <li>Taille max : 500 Ko</li>
+            <li>Zone de sécurité : 10 px / bord</li>
+            <li>Espace colorimétrique : RGB 72 dpi</li>
+            <li>Pas de texte clignotant</li>
+            <li>Police min. : 14 px</li>
+          </ul>
+        </div>
+
+        <div class="spec-box">
+          <div class="format-name">📱 Bandeau Mobile</div>
+          <div class="dims">320 × 50 px</div>
+          <div class="preview-banner" style="height:28px;font-size:.65em">BANDEAU MOBILE — 320×50</div>
+          <ul>
+            <li>Format : PNG, JPG ou GIF animé</li>
+            <li>Taille max : 200 Ko</li>
+            <li>Zone de sécurité : 5 px / bord</li>
+            <li>Espace colorimétrique : RGB 72 dpi</li>
+            <li>Version simplifiée du desktop</li>
+            <li>Police min. : 11 px</li>
+          </ul>
+        </div>
+
+        <div class="spec-box">
+          <div class="format-name">🪟 Popup Interstitiel</div>
+          <div class="dims">400 × 300 px</div>
+          <div class="preview-popup">VOTRE PUBLICITÉ — 400×300</div>
+          <ul>
+            <li>Format : PNG, JPG ou GIF animé</li>
+            <li>Taille max : 1 Mo</li>
+            <li>Zone de sécurité : 20 px / bord</li>
+            <li>Espace colorimétrique : RGB 72 dpi</li>
+            <li>Le bouton "Fermer" est ajouté par l'app</li>
+            <li>Ne pas inclure de bouton Fermer</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Template download area -->
+      <div style="background:#f8f4ff;border-radius:12px;padding:16px;margin-top:18px">
+        <h3 style="font-size:.95em;color:#764ba2;margin-bottom:8px">📥 Templates à télécharger</h3>
+        <p style="font-size:.82em;color:#666;margin-bottom:12px">Utilisez ces gabarits dans votre logiciel de création (Photoshop, Canva, Illustrator…)</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="downloadTemplate('banner-desktop')" style="font-size:.82em">🖥️ Template bandeau 728×90</button>
+          <button class="btn btn-secondary" onclick="downloadTemplate('banner-mobile')" style="font-size:.82em">📱 Template bandeau 320×50</button>
+          <button class="btn btn-secondary" onclick="downloadTemplate('popup')" style="font-size:.82em">🪟 Template popup 400×300</button>
+        </div>
+      </div>
+
+      <!-- Charte graphique recommandée -->
+      <div style="margin-top:18px">
+        <h3 style="font-size:.95em;color:#764ba2;margin-bottom:10px">🎨 Charte graphique recommandée</h3>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px">
+            <p style="font-size:.8em;color:#666;font-weight:600;margin-bottom:6px">Couleurs de l'application</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <div style="text-align:center">
+                <div style="width:44px;height:44px;border-radius:8px;background:#764ba2;margin:0 auto"></div>
+                <div style="font-size:.7em;color:#888;margin-top:3px">#764ba2</div>
+              </div>
+              <div style="text-align:center">
+                <div style="width:44px;height:44px;border-radius:8px;background:#667eea;margin:0 auto"></div>
+                <div style="font-size:.7em;color:#888;margin-top:3px">#667eea</div>
+              </div>
+              <div style="text-align:center">
+                <div style="width:44px;height:44px;border-radius:8px;background:#f39c12;margin:0 auto"></div>
+                <div style="font-size:.7em;color:#888;margin-top:3px">#f39c12</div>
+              </div>
+              <div style="text-align:center">
+                <div style="width:44px;height:44px;border-radius:8px;background:#2c3e50;margin:0 auto"></div>
+                <div style="font-size:.7em;color:#888;margin-top:3px">#2c3e50</div>
+              </div>
+            </div>
+          </div>
+          <div style="flex:1;min-width:200px">
+            <p style="font-size:.8em;color:#666;font-weight:600;margin-bottom:6px">Règles à respecter</p>
+            <ul style="font-size:.78em;color:#555;list-style:none">
+              <li>✅ Fond clair ou transparent</li>
+              <li>✅ Message clair et lisible</li>
+              <li>✅ Logo visible en petit format</li>
+              <li>❌ Pas d'animation rapide (&lt;3 clignotements)</li>
+              <li>❌ Pas de contenus trompeurs</li>
+              <li>❌ Pas de pop-up dans le visuel popup</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div style="text-align:center;padding:16px;font-size:.78em;color:#bbb">
+  Galop Training — Espace Annonceurs · <a href="mailto:sfigerou13@gmail.com" style="color:#764ba2">sfigerou13@gmail.com</a>
+</div>
+
+<script>
+// ── State ────────────────────────────────────────────────────────────────────
+var currentUser = null;
+var uploads = { banner: null, popup: null };
+
+// Simple advertiser store in localStorage
+// Key: 'adv_' + email  →  { code, company, pack, email, status, banner, popup, url }
+var ADMIN_EMAIL = 'sfigerou13@gmail.com';
+
+// ── Tabs ─────────────────────────────────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.section-block').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  var btns = document.querySelectorAll('.tab-btn');
+  var map = { inscription:0, connexion:1, bat:2 };
+  if (map[id] !== undefined) btns[map[id]].classList.add('active');
+}
+
+// ── Inscription ──────────────────────────────────────────────────────────────
+function submitInscription() {
+  var company = document.getElementById('reg-company').value.trim();
+  var name    = document.getElementById('reg-name').value.trim();
+  var email   = document.getElementById('reg-email').value.trim();
+  var pack    = document.getElementById('reg-pack').value;
+  var phone   = document.getElementById('reg-phone').value.trim();
+  var url     = document.getElementById('reg-url').value.trim();
+  var msg     = document.getElementById('reg-message').value.trim();
+
+  if (!company || !name || !email || !pack) {
+    showMsg('inscription', 'error', 'Merci de remplir tous les champs obligatoires (*).');
+    return;
+  }
+
+  // Generate unique access code
+  var code = 'ADV-' + Math.random().toString(36).substring(2,6).toUpperCase() + '-' +
+             Math.random().toString(36).substring(2,6).toUpperCase();
+
+  // Save to localStorage
+  var packLabels = {
+    'local-bandeau':'Pack Local Bandeau (49€/mois)', 'local-popup':'Pack Local Popup (79€/mois)',
+    'local-complet':'Pack Local Complet (99€/mois)', 'nat-fr':'Pack France (558€/mois)',
+    'nat-de':'Pack Allemagne (700€/mois)', 'nat-es':'Pack Espagne (392€/mois)',
+    'nat-it':'Pack Italie (500€/mois)', 'nat-uk':'Pack Royaume-Uni (558€/mois)',
+    'nat-eu':'Pack Europe entière (3750€/mois)'
+  };
+  var packLabel = packLabels[pack] || pack;
+
+  localStorage.setItem('adv_' + email.toLowerCase(), JSON.stringify({
+    code: code, company: company, name: name, email: email,
+    pack: pack, phone: phone, url: url, status: 'pending',
+    createdAt: new Date().toISOString()
+  }));
+
+  // Disable button, show loading
+  var btn = document.querySelector('#tab-inscription .btn-primary');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Envoi en cours…'; }
+
+  // ── Envoi via Web3Forms (remplacez VOTRE_CLE_WEB3FORMS) ──────────────────
+  var emailBody =
+    '🐴 Nouvelle inscription annonceur — Galop Training
+
+' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+' +
+    'Société    : ' + company + '
+' +
+    'Contact    : ' + name + '
+' +
+    'Email      : ' + email + '
+' +
+    'Téléphone  : ' + (phone || 'non renseigné') + '
+' +
+    'Site web   : ' + (url   || 'non renseigné') + '
+' +
+    'Pack       : ' + packLabel + '
+' +
+    'Message    : ' + (msg   || 'aucun') + '
+' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+' +
+    '🔑 CODE D'ACCÈS GÉNÉRÉ : ' + code + '
+
+' +
+    '→ Transmettez ce code à l'annonceur pour qu'il puisse se connecter.
+' +
+    '→ Son espace est pré-créé dans localStorage.
+
+' +
+    '(Galop Training Advertiser Portal — ' + new Date().toLocaleString('fr-FR') + ')';
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      access_key: 'VOTRE_CLE_WEB3FORMS',
+      subject: '[Galop Training] Nouvelle inscription annonceur — ' + company,
+      from_name: 'Galop Training Portal',
+      email: ADMIN_EMAIL,
+      message: emailBody,
+      botcheck: ''
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Envoyer ma demande d'inscription →'; }
+    if (data.success) {
+      showMsg('inscription', 'success',
+        '✅ Demande envoyée avec succès ! Vous recevrez votre code d'accès à ' + email + ' sous 24h.' +
+        '<br><small style="color:#555">Code provisoire : <strong>' + code + '</strong></small>');
+      // Clear form
+      ['reg-company','reg-name','reg-email','reg-phone','reg-url','reg-message'].forEach(function(id){
+        var el = document.getElementById(id); if(el) el.value = '';
+      });
+      document.getElementById('reg-pack').selectedIndex = 0;
+    } else {
+      // Fallback : open mailto if Web3Forms key not configured
+      if (data.message && data.message.indexOf('access_key') !== -1) {
+        _mailtoFallback(company, name, email, phone, url, packLabel, msg, code);
+      } else {
+        showMsg('inscription', 'error', '❌ Erreur d'envoi : ' + (data.message || 'inconnue') + '. Contactez sfigerou13@gmail.com');
+      }
+    }
+  })
+  .catch(function(err) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Envoyer ma demande d'inscription →'; }
+    // Fallback mailto
+    _mailtoFallback(company, name, email, phone, url, packLabel, msg, code);
+  });
+}
+
+function _mailtoFallback(company, name, email, phone, url, packLabel, msg, code) {
+  var subject = encodeURIComponent('[Galop Training] Inscription annonceur — ' + company);
+  var body = encodeURIComponent(
+    'Société : ' + company + '\nContact : ' + name + '\nEmail : ' + email +
+    '\nTéléphone : ' + (phone||'—') + '\nSite : ' + (url||'—') +
+    '\nPack : ' + packLabel + '\nMessage : ' + (msg||'aucun') +
+    '\n\nCODE : ' + code
+  );
+  window.open('mailto:' + ADMIN_EMAIL + '?subject=' + subject + '&body=' + body);
+  showMsg('inscription', 'info',
+    'ℹ️ Votre client mail s'est ouvert (envoi de secours). Clé Web3Forms non configurée — voir la bannière jaune en haut.' +
+    '<br>Code provisoire : <strong>' + code + '</strong>');
+}
+
+// ── Connexion ─────────────────────────────────────────────────────────────────
+function doLogin() {
+  var email = document.getElementById('login-email').value.trim().toLowerCase();
+  var code  = document.getElementById('login-code').value.trim().toUpperCase();
+  if (!email || !code) { showMsg('login','error','Merci de renseigner votre email et code.'); return; }
+
+  var raw = localStorage.getItem('adv_' + email);
+  if (!raw) { showMsg('login','error','Compte introuvable. Vérifiez votre email ou inscrivez-vous.'); return; }
+  var adv = JSON.parse(raw);
+  if (adv.code.toUpperCase() !== code) { showMsg('login','error','Code incorrect.'); return; }
+
+  currentUser = adv;
+  document.getElementById('login-form-wrap').style.display = 'none';
+  document.getElementById('dashboard-wrap').style.display = 'block';
+  renderDashboard();
+}
+
+function doLogout() {
+  currentUser = null;
+  document.getElementById('login-form-wrap').style.display = 'block';
+  document.getElementById('dashboard-wrap').style.display = 'none';
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-code').value = '';
+}
+
+function renderDashboard() {
+  if (!currentUser) return;
+  var packLabels = {
+    'local-bandeau':'Pack Local Bandeau','local-popup':'Pack Local Popup',
+    'local-complet':'Pack Local Complet','nat-fr':'Pack National France',
+    'nat-de':'Pack National Allemagne','nat-es':'Pack National Espagne',
+    'nat-it':'Pack National Italie','nat-uk':'Pack National Royaume-Uni',
+    'nat-eu':'Pack Europe entière'
+  };
+  document.getElementById('dash-company').textContent = currentUser.company;
+  document.getElementById('dash-pack').textContent = packLabels[currentUser.pack] || currentUser.pack;
+  var statusEl = document.getElementById('dash-status');
+  statusEl.className = 'badge ' + (currentUser.status === 'active' ? 'active' : currentUser.status === 'inactive' ? 'inactive' : 'pending');
+  statusEl.textContent = currentUser.status === 'active' ? '✅ Actif' : currentUser.status === 'inactive' ? '❌ Inactif' : '⏳ En attente';
+
+  // Show relevant sections
+  var hasBanner = currentUser.pack.includes('bandeau') || currentUser.pack.includes('complet');
+  var hasPopup  = currentUser.pack.includes('popup')   || currentUser.pack.includes('complet');
+  // For nat packs, show both
+  if (currentUser.pack.startsWith('nat-')) { hasBanner = true; hasPopup = true; }
+
+  document.getElementById('section-bandeau').style.display = hasBanner ? 'block' : 'none';
+  document.getElementById('section-popup').style.display   = hasPopup  ? 'block' : 'none';
+
+  // Prefill infos
+  document.getElementById('info-company').value = currentUser.company || '';
+  document.getElementById('info-url').value     = currentUser.url     || '';
+  document.getElementById('info-email').value   = currentUser.email   || '';
+
+  // Prefill saved ads
+  if (currentUser.banner) {
+    document.getElementById('banner-url').value     = currentUser.banner.url     || '';
+    document.getElementById('banner-tagline').value = currentUser.banner.tagline || '';
+    if (currentUser.banner.src) {
+      document.getElementById('banner-preview-img').src = currentUser.banner.src;
+      document.getElementById('banner-filename').textContent = currentUser.banner.name || 'fichier chargé';
+      document.getElementById('banner-uploaded').style.display = 'block';
+    }
+  }
+  if (currentUser.popup) {
+    document.getElementById('popup-url').value = currentUser.popup.url || '';
+    document.getElementById('popup-cta').value = currentUser.popup.cta || '';
+    if (currentUser.popup.src) {
+      document.getElementById('popup-preview-img').src = currentUser.popup.src;
+      document.getElementById('popup-filename').textContent = currentUser.popup.name || 'fichier chargé';
+      document.getElementById('popup-uploaded').style.display = 'block';
+      document.getElementById('prev-popup-company').textContent = currentUser.company;
+    }
+  }
+}
+
+// ── File Upload ───────────────────────────────────────────────────────────────
+function handleUpload(type, input) {
+  var file = input.files[0];
+  if (!file) return;
+  var maxSize = type === 'popup' ? 1024*1024 : 512*1024;
+  if (file.size > maxSize) {
+    alert('Fichier trop lourd (max ' + (maxSize/1024) + ' Ko). Compressez votre image.');
+    input.value = ''; return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    uploads[type] = { src: e.target.result, name: file.name };
+    if (type === 'banner') {
+      document.getElementById('banner-preview-img').src = e.target.result;
+      document.getElementById('banner-filename').textContent = file.name;
+      document.getElementById('banner-uploaded').style.display = 'block';
+      document.getElementById('prev-banner-logo').innerHTML = '<img src="'+e.target.result+'" style="width:38px;height:38px;border-radius:7px;object-fit:cover">';
+    } else {
+      document.getElementById('popup-preview-img').src = e.target.result;
+      document.getElementById('popup-filename').textContent = file.name;
+      document.getElementById('popup-uploaded').style.display = 'block';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeUpload(type) {
+  uploads[type] = null;
+  if (type === 'banner') {
+    document.getElementById('banner-uploaded').style.display = 'none';
+    document.getElementById('banner-preview-img').src = '';
+    document.getElementById('upload-banner').value = '';
+    document.getElementById('prev-banner-logo').innerHTML = '🏇';
+  } else {
+    document.getElementById('popup-uploaded').style.display = 'none';
+    document.getElementById('popup-preview-img').src = '';
+    document.getElementById('upload-popup').value = '';
+  }
+}
+
+// ── Save ──────────────────────────────────────────────────────────────────────
+function saveAd(type) {
+  if (!currentUser) return;
+  if (type === 'bandeau') {
+    currentUser.banner = {
+      src:     uploads.banner ? uploads.banner.src : (currentUser.banner && currentUser.banner.src),
+      name:    uploads.banner ? uploads.banner.name : (currentUser.banner && currentUser.banner.name),
+      url:     document.getElementById('banner-url').value.trim(),
+      tagline: document.getElementById('banner-tagline').value.trim(),
+    };
+    showMsg('bandeau', 'success', '✅ Bandeau enregistré ! Votre publicité sera mise à jour sous 2h.');
+  } else {
+    currentUser.popup = {
+      src:  uploads.popup ? uploads.popup.src : (currentUser.popup && currentUser.popup.src),
+      name: uploads.popup ? uploads.popup.name : (currentUser.popup && currentUser.popup.name),
+      url:  document.getElementById('popup-url').value.trim(),
+      cta:  document.getElementById('popup-cta').value.trim(),
+    };
+    showMsg('popup', 'success', '✅ Popup enregistré ! Votre publicité sera mise à jour sous 2h.');
+  }
+  localStorage.setItem('adv_' + currentUser.email.toLowerCase(), JSON.stringify(currentUser));
+  // Notify admin by email
+  var subject = encodeURIComponent('[Galop Training] Mise à jour pub — ' + currentUser.company);
+  var body = encodeURIComponent(
+    currentUser.company + ' a mis à jour son ' + type + '.\nÀ valider et déployer dans l\'app.'
+  );
+  // Open silently (won't actually send without user action, but sets up the mailto)
+}
+
+function saveInfo() {
+  if (!currentUser) return;
+  currentUser.company = document.getElementById('info-company').value.trim();
+  currentUser.url     = document.getElementById('info-url').value.trim();
+  currentUser.email   = document.getElementById('info-email').value.trim();
+  localStorage.setItem('adv_' + currentUser.email.toLowerCase(), JSON.stringify(currentUser));
+  showMsg('info', 'success', '✅ Informations mises à jour.');
+}
+
+// ── Template download (SVG canvas) ───────────────────────────────────────────
+function downloadTemplate(type) {
+  var configs = {
+    'banner-desktop': { w:728, h:90,  label:'728 × 90 px — Bandeau Desktop' },
+    'banner-mobile':  { w:320, h:50,  label:'320 × 50 px — Bandeau Mobile' },
+    'popup':          { w:400, h:300, label:'400 × 300 px — Popup Interstitiel' }
+  };
+  var c = configs[type];
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+c.w+'" height="'+c.h+'">'
+    + '<rect width="'+c.w+'" height="'+c.h+'" fill="#f4f0fa" stroke="#764ba2" stroke-width="2" stroke-dasharray="8,4"/>'
+    + '<line x1="0" y1="0" x2="'+c.w+'" y2="'+c.h+'" stroke="#c39bd3" stroke-width="1" stroke-dasharray="4,4"/>'
+    + '<line x1="'+c.w+'" y1="0" x2="0" y2="'+c.h+'" stroke="#c39bd3" stroke-width="1" stroke-dasharray="4,4"/>'
+    + '<text x="50%" y="45%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="'+(c.h>60?16:10)+'" fill="#764ba2" font-weight="bold">VOTRE PUBLICITÉ</text>'
+    + '<text x="50%" y="65%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="'+(c.h>60?12:8)+'" fill="#888">'+c.label+'</text>'
+    + '</svg>';
+  var blob = new Blob([svg], {type:'image/svg+xml'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'template-' + type + '.svg';
+  a.click();
+}
+
+// ── Utils ─────────────────────────────────────────────────────────────────────
+function showMsg(id, type, text) {
+  var el = document.getElementById('msg-' + id);
+  if (!el) return;
+  el.className = 'msg ' + type;
+  el.textContent = text;
+  el.style.display = 'block';
+  setTimeout(function() { el.style.display = 'none'; }, 6000);
+}
+
+// Live preview update for banner
+document.addEventListener('DOMContentLoaded', function() {
+  var fields = [
+    ['banner-tagline', 'prev-banner-tag'],
+  ];
+  fields.forEach(function(pair) {
+    var el = document.getElementById(pair[0]);
+    if (el) el.addEventListener('input', function() {
+      var t = document.getElementById(pair[1]);
+      if (t) t.textContent = el.value || 'Votre tagline';
+    });
+  });
+  // Popup company name preview
+  var infoCo = document.getElementById('info-company');
+  if (infoCo) infoCo.addEventListener('input', function() {
+    var t = document.getElementById('prev-popup-company');
+    if (t) t.textContent = infoCo.value || 'Votre société';
+    var n = document.getElementById('prev-banner-name');
+    if (n) n.textContent = infoCo.value || 'Votre société';
+  });
+});
+
+  // ══ STRIPE CHECKOUT ════════════════════════════════════════════════════
+  async function payerAvecStripe(pack) {
+    const company = document.getElementById('company-name')?.value?.trim() || '';
+    const email   = document.getElementById('contact-email')?.value?.trim() || '';
+
+    if (!email) {
+      alert('Merci de renseigner votre email avant de procéder au paiement.');
+      document.getElementById('contact-email')?.focus();
+      return;
+    }
+
+    const btn = document.querySelector(`[data-pack="${pack}"] .pay-btn`);
+    if (btn) { btn.textContent = '⏳ Redirection...'; btn.disabled = true; }
+
+    try {
+      const resp = await fetch('/.netlify/functions/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pack, company, email })
+      });
+      const data = await resp.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error || 'Erreur inconnue');
+      }
+    } catch (err) {
+      alert('Erreur : ' + err.message + '\n\nVérifiez que le site est bien hébergé sur Netlify.');
+      if (btn) { btn.textContent = '💳 Souscrire maintenant'; btn.disabled = false; }
+    }
+  }
+
+  // Gestion retour depuis Stripe (succès / annulation)
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      setTimeout(() => alert('🎉 Paiement confirmé ! Votre annonce sera active sous 24h.\nVous recevrez un email de confirmation.'), 500);
+    } else if (params.get('payment') === 'cancelled') {
+      setTimeout(() => alert('Paiement annulé. Vous pouvez réessayer quand vous le souhaitez.'), 500);
+    }
+  })();
+
+</script>
+</body>
+</html>

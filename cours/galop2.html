@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galop 2 — Cours complet — Galop Academy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:#FFF9F0;color:#2C3E50;display:flex;min-height:100vh;}
+nav{width:260px;min-width:260px;background:linear-gradient(180deg,#f093fb,#f5576c);color:white;padding:20px;position:sticky;top:0;height:100vh;overflow-y:auto;}
+nav h2{font-size:1.1em;margin-bottom:16px;opacity:.9;}
+nav a{display:block;color:rgba(255,255,255,.8);text-decoration:none;padding:7px 10px;border-radius:8px;margin-bottom:4px;font-size:.88em;transition:background .2s;}
+nav a:hover,nav a.active{background:rgba(255,255,255,.2);color:white;}
+nav .back-link{background:rgba(255,255,255,.15);color:white;text-decoration:none;display:block;padding:9px 12px;border-radius:8px;margin-bottom:18px;font-weight:700;font-size:.9em;text-align:center;}
+main{flex:1;padding:30px;max-width:860px;}
+h1{font-size:2em;color:#f5576c;display:block;margin-bottom:6px;}
+.galop-badge{display:inline-block;background:linear-gradient(135deg,#f093fb,#f5576c);color:white;border-radius:50px;padding:4px 16px;font-size:.85em;margin-bottom:24px;}
+section{margin-bottom:40px;scroll-margin-top:20px;}
+h2{font-size:1.4em;color:#f5576c;border-bottom:3px solid #eee;padding-bottom:8px;margin-bottom:18px;}
+h3{font-size:1.1em;color:#f5576c;margin:18px 0 10px;}
+h4{font-size:1em;color:#c0392b;margin:14px 0 8px;}
+p{line-height:1.8;color:#333;margin-bottom:12px;font-size:.95em;}
+ul,ol{padding-left:22px;margin-bottom:14px;}
+li{margin-bottom:6px;line-height:1.7;font-size:.95em;color:#333;}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.9em;}
+th{background:#f5576c;color:white;padding:10px 12px;text-align:left;}
+td{padding:9px 12px;border-bottom:1px solid #eee;}
+tr:nth-child(even) td{background:#f8f9ff;}
+.retenir{background:#FFF3CD;border-left:5px solid #F9CA24;border-radius:8px;padding:14px 18px;margin:16px 0;}
+.retenir strong{color:#856404;display:block;margin-bottom:6px;}
+.info{background:#E8F4FD;border-left:5px solid #54A0FF;border-radius:8px;padding:14px 18px;margin:16px 0;}
+.info strong{color:#1a6fa8;display:block;margin-bottom:6px;}
+.warn{background:#FFF0F0;border-left:5px solid #EF4444;border-radius:8px;padding:14px 18px;margin:16px 0;}
+.warn strong{color:#C0392B;display:block;margin-bottom:6px;}
+.green{background:#EAFAF1;border-left:5px solid #2ECC71;border-radius:8px;padding:14px 18px;margin:16px 0;}
+.green strong{color:#1A8C4E;display:block;margin-bottom:6px;}
+.chapter-nav{display:flex;gap:10px;justify-content:flex-end;margin-top:30px;padding-top:20px;border-top:2px solid #eee;}
+.btn{background:linear-gradient(135deg,#f093fb,#f5576c);color:white;border:none;border-radius:50px;padding:10px 22px;font-size:.9em;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;}
+@media(max-width:700px){body{flex-direction:column;}nav{width:100%;height:auto;position:relative;}main{padding:18px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../galops_app.html" class="back-link">🏠 Retour à l'accueil</a>
+  <h2>🐴 Galop 2 — Cours complet</h2>
+  
+<a href="#morpho2">1. Morphologie avancée</a>
+<a href="#dents">2. Les dents et l'âge</a>
+<a href="#allures2">3. Allures et défauts</a>
+<a href="#aplombs">4. Les aplombs</a>
+<a href="#marechalerie">5. La maréchalerie</a>
+<a href="#sante">6. Santé et maladies courantes</a>
+<a href="#alimentation2">7. Alimentation approfondie</a>
+<a href="#pansage2">8. Pansage et soins</a>
+<a href="#harnachement2">9. Harnachement approfondi</a>
+<a href="#travail">10. Travail à cheval</a>
+
+</nav>
+<main>
+  <h1>🐴 Galop 2 — Cours complet</h1>
+  <div class="galop-badge">🐴 Programme FFE — Galop 2</div>
+  
+<section id="morpho2">
+<h2>1. Morphologie avancée</h2>
+<h3>Mesures du cheval</h3>
+<p>La taille se mesure au <strong>garrot</strong> à l'aide d'une toise ou d'un mètre ruban. On l'exprime en mètre (1,63 m) ou en <strong>mains</strong> dans le monde anglo-saxon (1 main = 10,16 cm).</p>
+<p>Le <strong>périmètre thoracique</strong> (tour de poitrail) sert à estimer le poids. Formule approximative : poids (kg) ≈ périmètre thoracique² × longueur du corps ÷ 11 880.</p>
+<p>La <strong>longueur</strong> se mesure de la pointe de l'épaule à la pointe de la fesse.</p>
+
+<h3>Profils de tête</h3>
+<table>
+<tr><th>Profil</th><th>Description</th><th>Races typiques</th></tr>
+<tr><td>Rectiligne</td><td>Chanfrein droit, profil plat</td><td>Selle Français, Holstein</td></tr>
+<tr><td>Concave / busqué en creux</td><td>Chanfrein concave, « tête de chameau »</td><td>Arabe</td></tr>
+<tr><td>Convexe / busqué</td><td>Chanfrein bombé, nez romain</td><td>Lusitanien, Ardennais</td></tr>
+<tr><td>Sub-convexe</td><td>Légèrement bombé</td><td>Percheron</td></tr>
+</table>
+
+<h3>Types morphologiques</h3>
+<p>Les chevaux peuvent être classés selon leur morphologie générale :</p>
+<ul>
+<li><strong>Hypermétrique :</strong> épais, osseux, massif (chevaux de trait). Dolichomorphe = long.</li>
+<li><strong>Eumétrique :</strong> proportionné, cheval de selle type (Selle Français).</li>
+<li><strong>Ellipométrique :</strong> fin, léger, racé (Pur-sang, Arabe). Bréviligne = court.</li>
+</ul>
+
+<h3>Défauts de conformation importants</h3>
+<ul>
+<li><strong>Dos ensellé :</strong> dos creux, souvent chez les vieux chevaux. Fragilise le dos.</li>
+<li><strong>Dos de carpe :</strong> dos bombé, arrondi. Moins fréquent mais gênant pour la selle.</li>
+<li><strong>Encolure de cerf :</strong> encolure fine, portée haut, nuque basse. Difficile à mettre sur le mors.</li>
+<li><strong>Encolure de cygne :</strong> très courbée vers l'intérieur (inversée). Prise d'appui difficile.</li>
+<li><strong>Croupe avalée :</strong> croupe descendant fortement vers la queue. Moteur puissant mais moins élégant.</li>
+<li><strong>Croupe de vache :</strong> garrot plus haut que croupe, dos descendant. Mauvais équilibre.</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Taille = mesure au garrot</li>
+<li>Profil arabe = concave (tête busquée en creux)</li>
+<li>Profil lusitanien = convexe (nez romain)</li>
+<li>Dos ensellé = dos creux (problème fréquent)</li>
+</ul></div>
+</section>
+
+<section id="dents">
+<h2>2. Les dents et l'âge</h2>
+<h3>Formule dentaire</h3>
+<p>Les chevaux ont deux séries de dents : les <strong>dents de lait</strong> (temporaires) et les <strong>dents définitives</strong>. La formule dentaire adulte est :</p>
+<ul>
+<li><strong>Incisives :</strong> 6 en haut + 6 en bas = 12 (coupent l'herbe)</li>
+<li><strong>Canines (crochets) :</strong> 4 chez le mâle, 0 ou petites chez la femelle. Apparaissent vers 4-5 ans.</li>
+<li><strong>Loup :</strong> petite dent devant les molaires, pas toujours présente. Souvent extraite en équitation.</li>
+<li><strong>Molaires/Prémolaires :</strong> 12 + 12 = 24 (broient)</li>
+<li><strong>Total :</strong> 40 chez le mâle, 36 chez la femelle (sans canines)</li>
+</ul>
+
+<h3>Déterminer l'âge par les dents</h3>
+<p>Les incisives centrales sont les meilleures pour estimer l'âge :</p>
+<table>
+<tr><th>Âge</th><th>Signes observables</th></tr>
+<tr><td>0-2 ans</td><td>Toutes les dents de lait présentes</td></tr>
+<tr><td>2,5 ans</td><td>Incisives centrales définitives poussent</td></tr>
+<tr><td>3,5 ans</td><td>Incisives médianes définitives poussent</td></tr>
+<tr><td>4,5 ans</td><td>Incisives coins définitives poussent</td></tr>
+<tr><td>5 ans</td><td>Toutes les dents définitives en place (« cheval à 5 ans »)</td></tr>
+<tr><td>6 ans</td><td>Nivelure des centrales (galette effacée)</td></tr>
+<tr><td>7 ans</td><td>Nivelure des médianes + étoile dentaire visible</td></tr>
+<tr><td>8 ans</td><td>Nivelure des coins</td></tr>
+<tr><td>9-12 ans</td><td>Crochet sur incisives supérieures coins (angle de Galvayne)</td></tr>
+<tr><td>12-15 ans</td><td>Rainure de Galvayne à mi-hauteur du coin</td></tr>
+<tr><td>>20 ans</td><td>Dents très inclinées, longues, en « verre d'opticien »</td></tr>
+</table>
+<div class="info"><strong>💡 Expression populaire :</strong> « À cheval donné on ne regarde pas les dents » — les dents révèlent l'âge. D'où l'expression : si on reçoit un cadeau, on ne se plaint pas de sa valeur !</div>
+
+<h3>Soins dentaires</h3>
+<ul>
+<li>Visite d'un <strong>dentiste équin</strong> (vétérinaire ou technicien dentaire équin) tous les 12 à 18 mois</li>
+<li>Les molaires poussent de façon continue et forment des pointes qui blessent les joues → <strong>raspage</strong> nécessaire</li>
+<li>Un cheval qui « chique » (recrache les aliments mâchés en boule), perd du poids ou refuse le mors → problème dentaire probable</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Formule adulte : 40 dents (mâle), 36 (femelle)</li>
+<li>Canines = crochets, apparaissent vers 4-5 ans, surtout chez le mâle</li>
+<li>Cheval « à 5 ans » = toutes les dents définitives</li>
+<li>Dents longues et inclinées = vieux cheval</li>
+</ul></div>
+</section>
+
+<section id="allures2">
+<h2>3. Allures et défauts d'allures</h2>
+<h3>Rappel des allures naturelles</h3>
+<p>Pas (4 temps), Trot (2 temps), Galop (3 temps + suspension). S'y ajoutent des allures spéciales :</p>
+
+<h3>L'Amble</h3>
+<p>Allure à 2 temps où les membres du <strong>même côté</strong> bougent ensemble (contrairement au trot où ce sont les diagonaux). Caractéristique de l'Islandais (tölt), du Tennessee Walker. Confortable pour le cavalier car peu d'oscillations latérales.</p>
+
+<h3>Le Tölt</h3>
+<p>Allure de l'Islandais : 4 temps comme le pas mais très rapide (jusqu'à 20 km/h). Très confortable, pas de temps de suspension. Le cavalier peut tenir un verre de vin en tölant sans le renverser !</p>
+
+<h3>Défauts d'allures</h3>
+<table>
+<tr><th>Défaut</th><th>Allure concernée</th><th>Description</th></tr>
+<tr><td>Forger</td><td>Trot / Galop</td><td>Le postérieur frappe le dessous du fer de l'antérieur correspondant (claquement métallique)</td></tr>
+<tr><td>Se couper</td><td>Toutes</td><td>Un membre frappe le membre opposé (blessure interne)</td></tr>
+<tr><td>Billarde</td><td>Trot</td><td>Les antérieurs lancés trop loin sur les côtés (arc de cercle)</td></tr>
+<tr><td>Panarde / Cagneux</td><td>Toutes</td><td>Pieds tournés vers l'extérieur (panard) ou vers l'intérieur (cagneux)</td></tr>
+<tr><td>Se péguer</td><td>Toutes</td><td>Les membres adhèrent au sol, manque de légèreté</td></tr>
+<tr><td>Trot à 4 temps</td><td>Trot</td><td>Irrégularité du trot, les diagonaux ne tombent plus ensemble → boiterie légère ?</td></tr>
+<tr><td>Galop désuni</td><td>Galop</td><td>Le cheval galope à droite devant et à gauche derrière (ou inversement) — très inconfortable</td></tr>
+</table>
+
+<h3>Les qualités d'allures</h3>
+<ul>
+<li><strong>Régularité :</strong> le rythme est constant et régulier (fondamental !)</li>
+<li><strong>Amplitude :</strong> l'enjambée est grande, les membres s'allongent</li>
+<li><strong>Impulsion :</strong> énergie qui vient de l'arrière-main, pousse vers l'avant</li>
+<li><strong>Légèreté :</strong> le cheval est souple, détendu, porte bien son bord</li>
+<li><strong>Engagement :</strong> les postérieurs viennent loin sous la masse</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Galop désuni = gauche devant + droit derrière (ou inversement)</li>
+<li>Forger = postérieur frappe l'antérieur (bruit de ferraille)</li>
+<li>Amble = membres du même côté ensemble (différent du trot)</li>
+<li>Régularité est la 1ère qualité d'allure</li>
+</ul></div>
+</section>
+
+<section id="aplombs">
+<h2>4. Les aplombs</h2>
+<h3>Qu'est-ce qu'un aplomb ?</h3>
+<p>Les aplombs désignent l'alignement des membres du cheval vus de face, de derrière et de profil. De bons aplombs permettent une répartition harmonieuse du poids et limitent les risques de blessures articulaires ou tendineuses.</p>
+
+<h3>Aplombs des membres antérieurs</h3>
+<h4>De face :</h4>
+<ul>
+<li><strong>Correct :</strong> Épaule → genou → boulet → sabot parfaitement alignés, pieds légèrement vers l'extérieur</li>
+<li><strong>Panard :</strong> Pieds tournés trop vers l'extérieur. Risque : se couper</li>
+<li><strong>Cagneux :</strong> Pieds tournés vers l'intérieur. Risque : fractures</li>
+<li><strong>Arqué :</strong> Genoux vers l'extérieur (jambes en « O »)</li>
+<li><strong>Serré devant :</strong> Membres trop rapprochés l'un de l'autre</li>
+</ul>
+<h4>De profil :</h4>
+<ul>
+<li><strong>Genoux droits :</strong> idéal, ligne verticale de l'épaule au sabot</li>
+<li><strong>Genou arqué (devant) :</strong> genou en avant de la ligne → fragilité des tendons</li>
+<li><strong>Genou creux (derrière) :</strong> genou en arrière → surcharge articulaire</li>
+<li><strong>Paturon droit :</strong> angle trop vertical, chocs au niveau des articulaires</li>
+<li><strong>Paturon long et couché :</strong> trop incliné, tendons sous tension</li>
+</ul>
+
+<h3>Aplombs des membres postérieurs</h3>
+<h4>De derrière :</h4>
+<ul>
+<li><strong>Correct :</strong> ligne de la hanche au sabot droite</li>
+<li><strong>Jarrets clos :</strong> Jarrets vers l'intérieur, sabots vers l'extérieur. Fréquent chez les poneys.</li>
+<li><strong>Jarrets ouverts :</strong> Jarrets vers l'extérieur, sabots vers l'intérieur</li>
+</ul>
+<h4>De profil :</h4>
+<ul>
+<li><strong>Jarrets coudés :</strong> Jarrets fléchis en avant. Risque de sésamoïdite.</li>
+<li><strong>Jarrets droits :</strong> Jarrets trop raides (cow-hocks). Manque d'impulsion.</li>
+<li><strong>Campe sous lui :</strong> Postérieurs engagés trop loin sous la masse. Parfois signe de douleur dorsale.</li>
+<li><strong>Campe derrière :</strong> Postérieurs reculés. Manque de moteur.</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Aplombs = alignement des membres. Essentiels pour la longévité du cheval.</li>
+<li>Panard = pieds vers l'extérieur ; Cagneux = vers l'intérieur</li>
+<li>Genou arqué (devant) = fragilité des tendons</li>
+<li>Jarrets clos = fréquent chez les poneys (jarrets vers l'intérieur)</li>
+</ul></div>
+</section>
+
+<section id="marechalerie">
+<h2>5. La maréchalerie</h2>
+<h3>Le sabot</h3>
+<p>Le sabot est constitué de plusieurs parties :</p>
+<ul>
+<li><strong>Paroi :</strong> l'enveloppe externe dure du sabot (kératine)</li>
+<li><strong>Sole :</strong> la partie plate inférieure, légèrement concave</li>
+<li><strong>Fourchette :</strong> la partie triangulaire élastique au centre de la sole. Amortisseur naturel du cheval. Très sensible.</li>
+<li><strong>Lacunes :</strong> les rainures de chaque côté de la fourchette</li>
+<li><strong>Bourrelet coronaire :</strong> jonction entre le sabot et la peau, zone de croissance du sabot</li>
+<li><strong>Ligne blanche :</strong> jonction entre la paroi et la sole. Zone d'ancrage des clous de fer.</li>
+</ul>
+<p>Le sabot pousse d'environ <strong>0,8 à 1 cm par mois</strong>. Un cheval non ferré doit être paré tous les <strong>6 à 8 semaines</strong>.</p>
+
+<h3>Le ferrage</h3>
+<p>Le ferrage consiste à clouer un fer métallique (acier, aluminium ou plastique) sous le sabot pour le protéger. Tous les chevaux ne sont pas forcément ferrés :</p>
+<table>
+<tr><th>Situation</th><th>Ferrage recommandé ?</th></tr>
+<tr><td>Poney au pré, travail léger</td><td>Non ferré souvent suffisant</td></tr>
+<tr><td>Travail régulier sur sol dur</td><td>Oui, les 4 membres</td></tr>
+<tr><td>Cheval de sport</td><td>Oui, adapté à la discipline</td></tr>
+<tr><td>Cheval avec aplombs défectueux</td><td>Ferrage orthopédique correcteur</td></tr>
+</table>
+<h4>Types de fers :</h4>
+<ul>
+<li><strong>Fer plat standard :</strong> le plus courant, protection basique</li>
+<li><strong>Fer à crampons :</strong> pointes ajoutées pour l'adhérence (boue, neige, cross)</li>
+<li><strong>Fer en plastique :</strong> plus léger, amortissant, pour la réhabilitation</li>
+<li><strong>Fer orthopédique :</strong> forme spéciale pour corriger un défaut ou soulager une pathologie</li>
+</ul>
+<h4>Signes d'un fer à refaire :</h4>
+<ul>
+<li>Fer qui bouge (desserre) — Urgent !</li>
+<li>Sabot qui déborde sur le fer (paroix trop long)</li>
+<li>Clous qui ressortent ou se cassent</li>
+<li>Usure excessive du fer</li>
+<li>En général : refaire tous les <strong>6 à 8 semaines</strong></li>
+</ul>
+
+<h3>Le maréchal-ferrant</h3>
+<p>Le maréchal-ferrant est le professionnel qui ferre les chevaux. Sa visite comprend :</p>
+<ol>
+<li>Déferrage (enlever l'ancien fer)</li>
+<li>Parage (couper et raser la paroi en excès, recréer la sole)</li>
+<li>Ajustage (forger le fer à la bonne forme)</li>
+<li>Ferrage (clouage + rivetage des clous)</li>
+</ol>
+<div class="warn"><strong>⚠️ Jamais de clous rouillés ou cassés :</strong> Un clou cassé qui reste dans la boîte cornée peut provoquer une infection grave. Vérifier les pieds à chaque pansage.</div>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Sabot pousse ~1 cm/mois. Parage ou ferrage tous les 6-8 semaines.</li>
+<li>Fourchette = amortisseur naturel en triangle</li>
+<li>Ligne blanche = ancrage des clous</li>
+<li>Fer qui bouge = urgence maréchal</li>
+</ul></div>
+</section>
+
+<section id="sante">
+<h2>6. Santé et maladies courantes</h2>
+<h3>Les signes de bonne santé</h3>
+<table>
+<tr><th>Paramètre</th><th>Valeur normale adulte</th></tr>
+<tr><td>Température rectale</td><td>37,5 à 38,5 °C</td></tr>
+<tr><td>Fréquence cardiaque</td><td>28 à 44 battements/minute</td></tr>
+<tr><td>Fréquence respiratoire</td><td>8 à 16 mouvements/minute</td></tr>
+<tr><td>Couleur des muqueuses</td><td>Rose (gencives, conjonctive)</td></tr>
+<tr><td>Transit (crottins)</td><td>6 à 12 fois/jour, bien formés</td></tr>
+<tr><td>Urine</td><td>Jaune paille, peut être trouble (mucus normal)</td></tr>
+</table>
+
+<h3>Les coliques</h3>
+<p>La colique est une <strong>douleur abdominale</strong>. C'est l'urgence vétérinaire la plus fréquente chez le cheval. Les causes sont nombreuses : bouchon alimentaire, gas, torsion d'intestin, fourbure…</p>
+<h4>Signes de coliques :</h4>
+<ul>
+<li>Regarde son flanc (gratte, mord)</li>
+<li>Se couche et se relève souvent, se roule</li>
+<li>Transpiration excessive</li>
+<li>Refus de manger ou boire</li>
+<li>Pas ou peu de crottins</li>
+<li>Grincements de dents, gémissements</li>
+</ul>
+<div class="warn"><strong>⚠️ Colique = TOUJOURS appeler le vétérinaire !</strong> Ne jamais laisser un cheval qui se roule violemment sans surveillance — risque de torsion d'intestin, mortelle. Faire marcher doucement en attendant le vétérinaire.</div>
+
+<h3>La fourbure</h3>
+<p>La fourbure est une <strong>inflammation des tissus internes du sabot</strong> (laminite). Le cheval a très mal aux pieds, surtout aux antérieurs. Causes principales : herbe de printemps riche, excès de concentrés, travail intensif sur sol dur, obésité.</p>
+<h4>Signes :</h4>
+<ul>
+<li>Cheval se met en « position du canon » (antérieurs avancés, postérieurs sous lui)</li>
+<li>Chaleur excessive dans les sabots</li>
+<li>Pouls fort sous le boulet (artère digitale)</li>
+<li>Boiterie bilatérale des antérieurs</li>
+</ul>
+
+<h3>Les parasites internes (vers)</h3>
+<p>Les strongles (petits et grands), ascaris, oxyures... parasitent le tube digestif du cheval. Ils peuvent causer des coliques, une perte de poids, un mauvais état général.</p>
+<ul>
+<li><strong>Prévention :</strong> vermifugation régulière (2 à 4 fois/an selon le protocole vétérinaire)</li>
+<li><strong>Coproscopie :</strong> analyse des crottins pour évaluer le niveau de parasitisme avant de vermifuger</li>
+<li><strong>Ramassage des crottins au pré :</strong> le meilleur moyen de réduire la contamination</li>
+</ul>
+
+<h3>Les vaccinations obligatoires</h3>
+<table>
+<tr><th>Maladie</th><th>Fréquence</th><th>Obligatoire en compétition ?</th></tr>
+<tr><td>Grippe équine</td><td>Rappel tous les 6 mois (compétition) à 1 an</td><td>OUI pour FFE</td></tr>
+<tr><td>Tétanos</td><td>Rappel tous les 1 à 3 ans</td><td>Non mais fortement recommandé</td></tr>
+<tr><td>Rhinopneumonie</td><td>Rappel tous les 6 mois</td><td>Recommandé, obligatoire dans certains clubs</td></tr>
+<tr><td>Rage</td><td>Selon zones géographiques</td><td>Zones à risque uniquement</td></tr>
+</table>
+<div class="info"><strong>💡 Le carnet de santé :</strong> Chaque cheval doit avoir un carnet de santé (« passeport équin ») où sont notées toutes les vaccinations et traitements. En compétition FFE, il doit être présenté à chaque concours.</div>
+
+<h3>Les soins courants</h3>
+<ul>
+<li><strong>Prise de température :</strong> thermomètre rectal, lubrifié, 1-2 minutes</li>
+<li><strong>Traitement d'une plaie simple :</strong> nettoyer à l'eau et au savon, désinfecter, bander si nécessaire. Appeler le vétérinaire si profonde ou proche d'une articulation.</li>
+<li><strong>Bandes de repos :</strong> protègent les tendons, soutiennent. Bander en partant du bas, ni trop serré ni trop lâche.</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Température normale : 37,5-38,5 °C</li>
+<li>Colique = appeler le vétérinaire TOUJOURS</li>
+<li>Grippe équine : vaccin obligatoire FFE tous les 6 mois</li>
+<li>Fourbure : chaleur dans les sabots + position du canon</li>
+</ul></div>
+</section>
+
+<section id="alimentation2">
+<h2>7. Alimentation approfondie</h2>
+<h3>La ration de base</h3>
+<p>La ration idéale représente <strong>1,5 à 2,5% du poids vif</strong> en matière sèche. Pour un cheval de 500 kg :</p>
+<ul>
+<li>Ration de base (repos) : 8 à 12 kg de foin/jour</li>
+<li>Avec travail modéré : 8 kg foin + 1,5 kg granulés</li>
+<li>Avec travail intense : 7 kg foin + 3 kg granulés</li>
+</ul>
+<div class="warn"><strong>⚠️ Règle d'or :</strong> La quantité de fourrage ne doit JAMAIS descendre en dessous de 1% du poids vif, même pour un cheval très travaillé. Le foin protège la paroi gastrique.</div>
+
+<h3>Les besoins nutritionnels</h3>
+<table>
+<tr><th>Nutriment</th><th>Rôle</th><th>Sources</th></tr>
+<tr><td>Fibres</td><td>Transit, fermentation bactérienne, chaleur</td><td>Foin, paille, herbe</td></tr>
+<tr><td>Énergie (amidon)</td><td>Effort musculaire</td><td>Céréales, granulés</td></tr>
+<tr><td>Protéines</td><td>Construction musculaire</td><td>Luzerne, tourteaux</td></tr>
+<tr><td>Calcium/Phosphore</td><td>Os, dents</td><td>Luzerne, compléments minéraux</td></tr>
+<tr><td>Vitamines A, D, E</td><td>Vision, immunité, muscles</td><td>Herbe fraîche, compléments hiver</td></tr>
+<tr><td>Magnésium</td><td>Nervosité, muscles</td><td>Son, orge, compléments</td></tr>
+</table>
+
+<h3>La gestion des pâtures</h3>
+<ul>
+<li><strong>Rotation des parcelles :</strong> laisser les prairies « se reposer » 3-4 semaines entre deux utilisations</li>
+<li><strong>Chargement :</strong> max 1 cheval adulte par 0,5 hectare pour préserver l'herbe</li>
+<li><strong>Traitement des prairies :</strong> roulage au printemps, fertilisation raisonnée, élimination des adventices</li>
+<li><strong>Clôtures électriques :</strong> vérifier la tension chaque jour (végétation court-circuite)</li>
+</ul>
+
+<h3>L'eau en détail</h3>
+<p>L'eau représente 65% du poids corporel du cheval. La déshydratation de seulement 5% des réserves hydriques réduit les performances de 20-30%.</p>
+<ul>
+<li>Test de déshydratation : pincer la peau sur l'encolure — si elle revient lentement (> 2 secondes), le cheval est déshydraté</li>
+<li>Ne jamais priver un cheval d'eau sauf prescription vétérinaire spéciale</li>
+<li>Après un effort intense, donner d'abord quelques gorgées, attendre 15 min, puis laisser boire librement</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Minimum 1% du poids vif en foin (ex. 5 kg pour 500 kg)</li>
+<li>Donner les concentrés APRÈS le fourrage</li>
+<li>Rotation des parcelles = santé des prairies</li>
+<li>Test déshydratation : pincer la peau de l'encolure</li>
+</ul></div>
+</section>
+
+<section id="pansage2">
+<h2>8. Pansage et soins avancés</h2>
+<h3>La toilette approfondie</h3>
+<p>En plus du pansage quotidien, certains soins sont à effectuer périodiquement :</p>
+<ul>
+<li><strong>Shampoing :</strong> avec un produit adapté aux chevaux (pH neutre). Rincer abondamment. Sécher à la main ou au soleil (jamais au soleil direct mouillé longtemps).</li>
+<li><strong>Conditionneur pour crins :</strong> facilite le démêlage et évite la casse</li>
+<li><strong>Tondeuse :</strong> tonte partielle ou complète en automne/hiver pour les chevaux qui suent beaucoup au travail. Un cheval tondu doit être couvert (couverture d'écurie et de sortie).</li>
+</ul>
+
+<h3>Les tailles</h3>
+<ul>
+<li><strong>Taille de la crinière :</strong> égaliser à une longueur d'environ 10-12 cm (dressage = longue, obstacle = courte tressée). Se fait avec un peigne et le bord de la main (pas aux ciseaux, cela « plume »).</li>
+<li><strong>Tressage :</strong> pour les concours, protège la crinière et soigne la présentation</li>
+<li><strong>Taille des fanons :</strong> les fanons protègent le boulet de la boue</li>
+</ul>
+
+<h3>Les couvertures</h3>
+<table>
+<tr><th>Type</th><th>Utilisation</th></tr>
+<tr><td>Couverture d'écurie (polaire/molleton)</td><td>Cheval tondu ou frileux dans le box, hiver</td></tr>
+<tr><td>Couverture imperméable</td><td>Au pré sous la pluie</td></tr>
+<tr><td>Couverture légère (fly sheet)</td><td>Été, protection contre les insectes</td></tr>
+<tr><td>Couverture de séchage</td><td>Après l'effort, absorbe la transpiration</td></tr>
+<tr><td>Couverture de transport</td><td>Dans le van ou le camion</td></tr>
+</table>
+
+<h3>Le soin des membres</h3>
+<ul>
+<li><strong>Rinçage des membres :</strong> après un effort, rincer à l'eau fraîche (pas froide) les membres pour réduire l'inflammation</li>
+<li><strong>Argile :</strong> appliquer de l'argile verte sur les membres après l'effort (anti-inflammatoire, rafraîchissant). Laisser sécher 1-2h, puis rincer.</li>
+<li><strong>Bandes de travail :</strong> protègent les tendons et les boulets pendant l'effort (polo wraps ou boots). Bander en partant du haut du canon, en spirale descendante, jamais en croix sur les tendons.</li>
+<li><strong>Bandes de repos :</strong> soutien des tendons après l'effort. Doublées d'une bande de coton. Laisser maximum 12h sans vérification.</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Cheval tondu = couverture obligatoire</li>
+<li>Argile verte = après effort, anti-inflammatoire</li>
+<li>Bandes de travail : spirale descendante, jamais en croix sur tendons</li>
+<li>Séchage après shampoing = important (ne pas laisser mouillé au froid)</li>
+</ul></div>
+</section>
+
+<section id="harnachement2">
+<h2>9. Harnachement approfondi</h2>
+<h3>Le licol et la longe</h3>
+<p>Le licol est la pièce de base pour conduire un cheval à pied. Il se place sur la tête, avec :</p>
+<ul>
+<li><strong>La muserolle :</strong> passe sur le chanfrein</li>
+<li><strong>Le frontal :</strong> passe sur le front</li>
+<li><strong>La sous-gorge :</strong> passe sous la gorge</li>
+<li><strong>La jugulaire :</strong> passe derrière la tête</li>
+<li><strong>L'anneau de longe :</strong> sous le menton, où s'accroche la longe</li>
+</ul>
+<p>La <strong>longe</strong> est une corde longue (7-8 m) pour travailler le cheval en cercle. On tient la longe dans la main intérieure, le fouet de longe dans l'extérieure. Le cheval tourne autour de nous.</p>
+
+<h3>Entretien du cuir</h3>
+<p>Le cuir (selle, filet, longe cuir) doit être entretenu régulièrement :</p>
+<ol>
+<li>Nettoyer avec une éponge légèrement humide + savon de sellerie (glycérine)</li>
+<li>Appliquer de la graisse à cuir ou du baume nourrissant</li>
+<li>Laisser sécher à l'abri de la chaleur directe</li>
+<li>Vérifier l'état des coutures, des boucles et des étrivières</li>
+</ol>
+<div class="warn"><strong>⚠️ Cuir sec = cuir cassant :</strong> Une étrivière sèche et craquelée peut casser pendant une sortie → chute. Nourrir le cuir au moins une fois par semaine.</div>
+
+<h3>Les muserolle</h3>
+<table>
+<tr><th>Type</th><th>Rôle</th></tr>
+<tr><td>Muserolle simple (chanfrein)</td><td>Passé sur le chanfrein, évite que le cheval ouvre la bouche</td></tr>
+<tr><td>Muserolle croisée (en 8)</td><td>Croix sur le chanfrein, empêche plus fermement l'ouverture de bouche</td></tr>
+<tr><td>Muserolle flash</td><td>Combinée avec une sangle sous le mors</td></tr>
+<tr><td>Hackamore</td><td>Pas de mors, pression sur le chanfrein et la nuque</td></tr>
+</table>
+
+<h3>Les matières des équipements</h3>
+<ul>
+<li><strong>Cuir naturel :</strong> durable, « respire », doit être entretenu</li>
+<li><strong>Synthétique / Biothane :</strong> léger, facile à laver, pas d'entretien particulier. Moins élégant.</li>
+<li><strong>Nylon :</strong> résistant, économique. Souvent utilisé pour les licols d'écurie.</li>
+<li><strong>Corde :</strong> licols de travail (pression de nuque ou de chanfrein)</li>
+</ul>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Longe : main intérieure tient la longe, extérieure le fouet</li>
+<li>Entretenir le cuir = sécurité (éviter la casse)</li>
+<li>Muserolle croisée = empêche l'ouverture de bouche</li>
+<li>Hackamore = harnachement sans mors</li>
+</ul></div>
+</section>
+
+<section id="travail">
+<h2>10. Le travail à cheval</h2>
+<h3>L'échauffement</h3>
+<p>Comme chez le sportif humain, le cheval doit être échauffé avant tout effort intense :</p>
+<ul>
+<li>10-15 minutes de pas actif pour chauffer les muscles et les tendons</li>
+<li>5-10 minutes de trot enlevé sur les deux mains</li>
+<li>2-3 minutes de galop léger sur les deux mains</li>
+<li>Puis exercices spécifiques à la discipline</li>
+</ul>
+
+<h3>Le retour au calme</h3>
+<p>Après l'effort, le retour au calme est tout aussi important :</p>
+<ul>
+<li>10-15 minutes de pas actif pour éliminer l'acide lactique</li>
+<li>Vérifier la respiration avant de desseller (ne pas desseller tant que le flanc s'emballe)</li>
+<li>Rincer les membres à l'eau fraîche</li>
+<li>Panser pour contrôler l'état du cheval</li>
+<li>Ne pas donner à boire en grande quantité immédiatement (attendre 15-20 min)</li>
+</ul>
+
+<h3>La figure de manège : le cercle</h3>
+<p>Le cercle est la figure de base :</p>
+<ul>
+<li>Diamètre standard : 20 m (grande piste), 10 m (petite volte)</li>
+<li>Le cheval doit être <strong>incurvé</strong> dans la direction du mouvement (regard vers l'intérieur)</li>
+<li>Rêne intérieure = directrice. Rêne extérieure = limite la vitesse et contrôle l'incurvation</li>
+<li>Jambe intérieure = maintient l'impulsion, interdit le cheval de tomber vers l'intérieur</li>
+<li>Jambe extérieure = empêche la croupe de déborder vers l'extérieur</li>
+</ul>
+
+<h3>Les transitions</h3>
+<p>Les transitions (changements d'allure) sont fondamentales en équitation :</p>
+<ul>
+<li><strong>Transition montante :</strong> pas → trot → galop. Action des jambes.</li>
+<li><strong>Transition descendante :</strong> galop → trot → pas → arrêt. Action des mains et du dos.</li>
+<li><strong>Transition sur la piste :</strong> toujours préparer 3-4 foulées avant (jambes, assiette, regard)</li>
+</ul>
+<div class="green"><strong>✅ Le principe fondamental :</strong> « Mettre dans les jambes ce qu'on va prendre dans les mains. » Avant de freiner (mains), toujours impliquer le dos et les jambes pour que le cheval reste actif derrière.</div>
+<div class="retenir"><strong>📌 À retenir :</strong>
+<ul>
+<li>Échauffement : 10 min de pas AVANT tout travail</li>
+<li>Retour au calme : 10 min de pas APRÈS tout travail</li>
+<li>Cercle de 20 m = figure de base du manège</li>
+<li>Jambe intérieure sur la sangle, extérieure en arrière de la sangle</li>
+</ul></div>
+</section>
+
+  <div class="chapter-nav"><a href="galop1.html" class="btn">← Galop 1</a><a href="galop3.html" class="btn">Galop 3 →</a><a href="../galops_app.html" class="btn">🏠 Accueil</a></div>
+</main>
+<script>
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('nav a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 60) current = s.id; });
+  links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#'+current));
+});
+</script>
+</body></html>
