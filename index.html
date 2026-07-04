@@ -2525,6 +2525,8 @@ function switchClubsTab(tab) {
 }
 
 // ─── RECHERCHE CLUBS ───────────────────────────────────────────────────
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
 async function searchClubs() {
   if (!SUPA_READY) {
     document.getElementById('clubs-results').innerHTML =
@@ -2556,31 +2558,31 @@ async function searchClubs() {
       if (level) slots = slots.filter(function(s){ return s.level === level; });
       if (type)  slots = slots.filter(function(s){ return s.type === type; });
       if (slots.length === 0 && (city || date || level || type)) continue;
-      const disciplines = (club.disciplines||[]).map(function(d){ return '<span class="discipline-tag">' + d + '</span>'; }).join('');
+      const disciplines = (club.disciplines||[]).map(function(d){ return '<span class="discipline-tag">' + esc(d) + '</span>'; }).join('');
       const slotsHtml = slots.length === 0
         ? '<p style="color:#aaa;font-size:.82em">Aucun créneau disponible actuellement.</p>'
         : '<div class="slots-list">' + slots.map(function(sl){
             const full = (sl.booked_count||0) >= (sl.max_capacity||10);
             const dispo = (sl.max_capacity||10) - (sl.booked_count||0);
             return '<div class="slot-card">' +
-              '<div class="slot-time">📅 ' + formatDate(sl.date) + ' à ' + sl.start_time + '</div>' +
-              '<div class="slot-type">' + (sl.type||'') + ' · ' + (sl.level||'') + '</div>' +
-              '<div class="slot-info">⏱ ' + (sl.duration||60) + ' min · 👤 ' + dispo + ' place' + (dispo>1?'s':'') + ' · ' + (sl.price?sl.price+'€':'Prix libre') + '</div>' +
+              '<div class="slot-time">📅 ' + formatDate(sl.date) + ' à ' + esc(sl.start_time) + '</div>' +
+              '<div class="slot-type">' + esc(sl.type) + ' · ' + esc(sl.level) + '</div>' +
+              '<div class="slot-info">⏱ ' + (sl.duration||60) + ' min · 👤 ' + dispo + ' place' + (dispo>1?'s':'') + ' · ' + (sl.price?esc(sl.price)+'€':'Prix libre') + '</div>' +
               (full ? '<div class="slot-full">Complet</div>'
                     : '<button class="book-btn" onclick="bookSlot(\'' + sl.id + '\',this)">Réserver</button>') +
               '</div>';
           }).join('') + '</div>';
       html += '<div class="club-card">' +
-        '<h3>🏇 ' + (club.name||'Club sans nom') + '</h3>' +
-        '<div class="club-meta">📍 ' + (club.city||'') + ' ' + (club.address ? '· '+club.address : '') + ' ' + (club.phone ? '· 📞 '+club.phone : '') + '</div>' +
+        '<h3>🏇 ' + esc(club.name||'Club sans nom') + '</h3>' +
+        '<div class="club-meta">📍 ' + esc(club.city||'') + ' ' + (club.address ? '· '+esc(club.address) : '') + ' ' + (club.phone ? '· 📞 '+esc(club.phone) : '') + '</div>' +
         '<div class="club-disciplines">' + disciplines + '</div>' +
-        (club.description ? '<p style="font-size:.82em;color:#555;margin:0 0 10px">' + club.description + '</p>' : '') +
+        (club.description ? '<p style="font-size:.82em;color:#555;margin:0 0 10px">' + esc(club.description) + '</p>' : '') +
         slotsHtml +
       '</div>';
     }
     resultsEl.innerHTML = html || '<p style="color:#aaa;text-align:center;padding:30px 0">Aucun résultat pour ces critères.</p>';
   } catch(e) {
-    resultsEl.innerHTML = '<p style="color:#e74c3c;text-align:center">Erreur : ' + e.message + '</p>';
+    resultsEl.innerHTML = '<p style="color:#e74c3c;text-align:center">Erreur : ' + esc(e.message) + '</p>';
     console.warn(e);
   }
 }
@@ -2610,17 +2612,18 @@ async function bookSlot(slotId, btn) {
       const rs = await sb.from('slots').select('date,start_time,type,level,clubs(name,email,city)').eq('id', slotId).maybeSingle();
       const slot = rs.data || {};
       const club = slot.clubs || {};
+      const sess = await sb.auth.getSession();
+      const token = (sess.data && sess.data.session) ? sess.data.session.access_token : '';
       await fetch('/api/send-email', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
         body: JSON.stringify({
-          to: _currentUser.email,
           subject: 'Confirmation de réservation — ' + (club.name || 'ton club'),
-          html: '<p>Bonjour ' + _currentUser.displayName + ',</p>' +
+          html: '<p>Bonjour ' + esc(_currentUser.displayName) + ',</p>' +
                 '<p>Ta réservation est confirmée :</p>' +
-                '<ul><li>Club : ' + (club.name||'') + (club.city?(' ('+club.city+')'):'') + '</li>' +
-                '<li>Date : ' + formatDate(slot.date) + ' à ' + (slot.start_time||'') + '</li>' +
-                '<li>' + (slot.type||'') + ' · ' + (slot.level||'') + '</li></ul>' +
+                '<ul><li>Club : ' + esc(club.name||'') + (club.city?(' ('+esc(club.city)+')'):'') + '</li>' +
+                '<li>Date : ' + formatDate(slot.date) + ' à ' + esc(slot.start_time||'') + '</li>' +
+                '<li>' + esc(slot.type||'') + ' · ' + esc(slot.level||'') + '</li></ul>' +
                 '<p>À très vite ! 🐴 Galop Academy</p>'
         })
       });
@@ -2628,7 +2631,7 @@ async function bookSlot(slotId, btn) {
     setTimeout(function(){ searchClubs(); }, 1500);
   } catch(e) {
     btn.disabled = false; btn.textContent = 'Réserver';
-    alert('Erreur : ' + e.message);
+    alert('Erreur : ' + esc(e.message));
   }
 }
 
@@ -2648,18 +2651,18 @@ async function renderClubAdmin() {
       '<div class="club-admin-box">' +
         '<h3>📋 Profil du club</h3>' +
         '<div class="form-row">' +
-          '<input id="club-name" placeholder="Nom du club *" value="' + (club.name||'') + '" />' +
-          '<input id="club-city" placeholder="Ville *" value="' + (club.city||'') + '" />' +
+          '<input id="club-name" placeholder="Nom du club *" value="' + esc(club.name||'') + '" />' +
+          '<input id="club-city" placeholder="Ville *" value="' + esc(club.city||'') + '" />' +
         '</div>' +
         '<div class="form-row">' +
-          '<input id="club-address" placeholder="Adresse" value="' + (club.address||'') + '" />' +
-          '<input id="club-phone" placeholder="Téléphone" value="' + (club.phone||'') + '" />' +
+          '<input id="club-address" placeholder="Adresse" value="' + esc(club.address||'') + '" />' +
+          '<input id="club-phone" placeholder="Téléphone" value="' + esc(club.phone||'') + '" />' +
         '</div>' +
         '<div class="form-row">' +
-          '<input id="club-email" placeholder="Email contact" value="' + (club.email||'') + '" />' +
+          '<input id="club-email" placeholder="Email contact" value="' + esc(club.email||'') + '" />' +
         '</div>' +
         '<div class="form-row">' +
-          '<textarea id="club-desc" placeholder="Description du club (ambiance, installations…)">' + (club.description||'') + '</textarea>' +
+          '<textarea id="club-desc" placeholder="Description du club (ambiance, installations…)">' + esc(club.description||'') + '</textarea>' +
         '</div>' +
         '<div style="font-size:.85em;color:#555;margin:4px 0 6px">Disciplines proposées :</div>' +
         '<div class="disciplines-check">' +
@@ -2692,7 +2695,7 @@ async function renderClubAdmin() {
       '</div>';
     if (clubId) loadAdminSlots(clubId);
   } catch(e) {
-    el.innerHTML = '<p style="color:#e74c3c">Erreur : ' + e.message + '</p>';
+    el.innerHTML = '<p style="color:#e74c3c">Erreur : ' + esc(e.message) + '</p>';
   }
 }
 
@@ -2753,9 +2756,9 @@ async function loadAdminSlots(clubId) {
   if (!slots.length) { el.innerHTML = '<p style="color:#aaa;font-size:.85em">Aucun créneau à venir.</p>'; return; }
   el.innerHTML = slots.map(function(s){
     return '<div class="admin-slot-row">' +
-      '<div><strong>' + formatDate(s.date) + ' ' + s.start_time + '</strong> · ' + s.type + ' · ' + s.level + ' · ' + s.duration + 'min ' + (s.price ? '· '+s.price+'€' : '') + '</div>' +
+      '<div><strong>' + formatDate(s.date) + ' ' + esc(s.start_time) + '</strong> · ' + esc(s.type) + ' · ' + esc(s.level) + ' · ' + (s.duration) + 'min ' + (s.price ? '· '+esc(s.price)+'€' : '') + '</div>' +
       '<div style="display:flex;align-items:center;gap:12px">' +
-        '<span style="font-size:.82em;color:#764ba2">👤 ' + (s.booked_count||0) + '/' + s.max_capacity + '</span>' +
+        '<span style="font-size:.82em;color:#764ba2">👤 ' + (s.booked_count||0) + '/' + (s.max_capacity) + '</span>' +
         '<button class="admin-slot-del" onclick="deleteSlot(\'' + s.id + '\',this)">🗑</button>' +
       '</div></div>';
   }).join('');
