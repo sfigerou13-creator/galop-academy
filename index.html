@@ -2755,65 +2755,12 @@ async function bookSlot(slotId, btn) {
 // ─── ADMIN CLUB ────────────────────────────────────────────────────────
 async function renderClubAdmin() {
   const el = document.getElementById('clubs-admin-content');
-  if (!SUPA_READY || !_currentUser) {
-    el.innerHTML = '<p style="color:#aaa;text-align:center;padding:20px">Connecte-toi pour gérer ton club (bouton "Mon compte" en haut).</p>';
-    return;
-  }
-  el.innerHTML = '<p style="color:#aaa;text-align:center">Chargement…</p>';
-  try {
-    const rc = await sb.from('clubs').select('*').eq('owner_id', _currentUser.uid).limit(1);
-    const club = (rc.data && rc.data[0]) || {};
-    const clubId = club.id || null;
-    el.innerHTML =
-      '<div class="club-admin-box">' +
-        '<h3>📋 Profil du club</h3>' +
-        '<div class="form-row">' +
-          '<input id="club-name" placeholder="Nom du club *" value="' + esc(club.name||'') + '" />' +
-          '<input id="club-city" placeholder="Ville *" value="' + esc(club.city||'') + '" />' +
-        '</div>' +
-        '<div class="form-row">' +
-          '<input id="club-address" placeholder="Adresse" value="' + esc(club.address||'') + '" />' +
-          '<input id="club-phone" placeholder="Téléphone" value="' + esc(club.phone||'') + '" />' +
-        '</div>' +
-        '<div class="form-row">' +
-          '<input id="club-email" placeholder="Email contact" value="' + esc(club.email||'') + '" />' +
-        '</div>' +
-        '<div class="form-row">' +
-          '<textarea id="club-desc" placeholder="Description du club (ambiance, installations…)">' + esc(club.description||'') + '</textarea>' +
-        '</div>' +
-        '<div style="font-size:.85em;color:#555;margin:4px 0 6px">Disciplines proposées :</div>' +
-        '<div class="disciplines-check">' +
-          ['CSO','Dressage','Randonnée','Galops','Équifun','Voltige','Endurance'].map(function(d){
-            return '<label><input type="checkbox" value="' + d + '" ' + ((club.disciplines||[]).includes(d)?'checked':'') + '> ' + d + '</label>';
-          }).join('') +
-        '</div>' +
-        '<button class="save-btn" onclick="saveClubProfile(\'' + (clubId||'') + '\')">💾 Enregistrer le profil</button>' +
-      '</div>' +
-      '<div class="club-admin-box" ' + (!clubId ? 'style="opacity:.4;pointer-events:none"' : '') + '>' +
-        '<h3>➕ Ajouter un créneau</h3>' +
-        '<div class="form-row">' +
-          '<input type="date" id="slot-date" min="' + new Date().toISOString().split('T')[0] + '" />' +
-          '<input type="time" id="slot-time" value="10:00" />' +
-          '<select id="slot-duration"><option value="45">45 min</option><option value="60" selected>1h</option><option value="90">1h30</option><option value="120">2h</option></select>' +
-        '</div>' +
-        '<div class="form-row">' +
-          '<select id="slot-type"><option>Cours collectif</option><option>Cours particulier</option><option>Stage</option><option>Randonnée</option></select>' +
-          '<select id="slot-level"><option>Galop 1-2</option><option>Galop 3-4</option><option>Galop 5-6</option><option>Galop 7</option><option>Débutant</option><option>Confirmé</option><option>Tous niveaux</option></select>' +
-        '</div>' +
-        '<div class="form-row">' +
-          '<input type="number" id="slot-capacity" placeholder="Capacité max" value="8" min="1" max="30" />' +
-          '<input type="number" id="slot-price" placeholder="Prix (€)" min="0" />' +
-        '</div>' +
-        '<button class="save-btn" onclick="addSlot(\'' + (clubId||'') + '\')">➕ Ajouter ce créneau</button>' +
-      '</div>' +
-      '<div class="club-admin-box" id="admin-slots-box" ' + (!clubId ? 'style="display:none"' : '') + '>' +
-        '<h3>📅 Mes créneaux</h3>' +
-        '<div id="admin-slots-list">Chargement…</div>' +
-      '</div>';
-    if (clubId) loadAdminSlots(clubId);
-  } catch(e) {
-    el.innerHTML = '<p style="color:#e74c3c">Erreur : ' + esc(e.message) + '</p>';
-  }
+  el.innerHTML =
+    '<div class="club-admin-box" style="text-align:center">' +
+      '<h3>Vous gérez un centre équestre ?</h3>' +
+      '<p style="font-size:.86em;color:var(--ink-sub);line-height:1.6;margin:6px 0 14px">Gérez votre club, vos créneaux et vos réservations dans l\'espace professionnel dédié — avec import automatique de votre agenda Google / iCal.</p>' +
+      '<a class="save-btn" href="/pro" style="display:inline-block;text-decoration:none">Accéder à l\'espace pro →</a>' +
+    '</div>';
 }
 
 async function saveClubProfile(existingId) {

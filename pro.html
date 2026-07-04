@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Espace professionnel Galop Academy — gérez votre centre équestre, vos créneaux et vos réservations.">
+<title>Galop Academy — Espace Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --ink:#22302B;--ink-sub:#6E7B74;--surface:#F6F3EC;--white:#fff;--border:#E6DFD1;
+  --accent:#2F5D4F;--accent-2:#B08D57;--accent-bg:#EAF0EC;--r-sm:8px;--r:12px;
+  --shadow:0 2px 12px rgba(34,48,43,.06),0 1px 2px rgba(34,48,43,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',system-ui,sans-serif;background:var(--surface);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+header{background:#22302B;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:10;box-shadow:inset 0 -1px 0 rgba(176,141,87,.35)}
+header .brand{font-family:'Playfair Display',Georgia,serif;font-size:1.2em;font-weight:600;color:#F3EFE6;display:flex;align-items:center;gap:8px}
+header .brand::before{content:'\265E';color:#B08D57}
+header .pro-badge{font-size:.6em;font-weight:700;letter-spacing:1px;color:#B08D57;border:1px solid #B08D57;border-radius:5px;padding:2px 6px;text-transform:uppercase}
+#logout-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#F3EFE6;border-radius:var(--r-sm);padding:7px 13px;font-family:inherit;font-size:.8em;font-weight:600;cursor:pointer;display:none}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 60px}
+h1{font-family:'Playfair Display',Georgia,serif;font-size:1.5em;font-weight:600;margin-bottom:4px}
+.sub{color:var(--ink-sub);font-size:.9em;margin-bottom:20px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.card h2{font-family:'Playfair Display',Georgia,serif;font-size:1.1em;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card .hint{font-size:.8em;color:var(--ink-sub);line-height:1.5;margin-bottom:12px}
+label.fld{display:block;font-size:.74em;font-weight:600;color:var(--ink-sub);text-transform:uppercase;letter-spacing:.5px;margin:10px 0 4px}
+input,textarea,select{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:var(--r-sm);font-family:inherit;font-size:.9em;color:var(--ink);background:var(--white);outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:64px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:130px}
+.checks{display:flex;flex-wrap:wrap;gap:8px 15px;margin-top:8px}
+.checks label{display:inline-flex;align-items:center;gap:6px;font-size:.85em;color:var(--ink-sub);cursor:pointer}
+.checks input{width:auto}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:var(--r-sm);padding:12px 18px;font-family:inherit;font-size:.88em;font-weight:600;cursor:pointer;transition:background .15s}
+.btn:hover{background:#244A3F}
+.btn.ghost{background:var(--white);color:var(--accent);border:1px solid var(--border)}
+.btn.ghost:hover{background:var(--accent-bg)}
+.btn.sm{padding:8px 13px;font-size:.8em}
+.msg{font-size:.82em;margin-top:10px;padding:8px 12px;border-radius:var(--r-sm);display:none}
+.msg.ok{display:block;background:#E7F1EA;color:#1F5A44}
+.msg.err{display:block;background:#FBEAEA;color:#8A2E2E}
+.slot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:.85em}
+.slot:last-child{border-bottom:none}
+.slot .del{background:none;border:1px solid var(--border);border-radius:8px;padding:5px 9px;cursor:pointer}
+.tag{background:var(--accent-bg);color:var(--accent);border-radius:20px;padding:3px 10px;font-size:.72em;font-weight:600;margin-left:6px}
+.empty{color:var(--ink-sub);font-size:.85em;padding:8px 0}
+.auth-tabs{display:flex;gap:4px;background:var(--border);border-radius:9px;padding:3px;margin-bottom:16px}
+.auth-tab{flex:1;padding:9px;border:none;border-radius:6px;background:transparent;font-family:inherit;font-size:.85em;font-weight:600;color:var(--ink-sub);cursor:pointer}
+.auth-tab.active{background:var(--white);color:var(--ink)}
+#auth-view{max-width:400px;margin:40px auto}
+.mt{margin-top:12px}
+a.riderlink{color:var(--accent);font-size:.82em}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Galop Academy <span class="pro-badge">Pro</span></div>
+  <button id="logout-btn" onclick="doLogout()">Se déconnecter</button>
+</header>
+
+<div class="wrap">
+  <!-- AUTH -->
+  <div id="auth-view">
+    <h1>Espace professionnel</h1>
+    <p class="sub">Gérez votre centre équestre, vos créneaux et vos réservations.</p>
+    <div class="card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Connexion</button>
+        <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Créer un compte</button>
+      </div>
+      <div id="login-form">
+        <input id="lg-email" type="email" placeholder="Email">
+        <input id="lg-pass" type="password" placeholder="Mot de passe" class="mt">
+        <div id="lg-msg" class="msg"></div>
+        <button class="btn mt" style="width:100%" onclick="doLogin()">Me connecter</button>
+      </div>
+      <div id="register-form" style="display:none">
+        <input id="rg-name" type="text" placeholder="Votre nom">
+        <input id="rg-email" type="email" placeholder="Email" class="mt">
+        <input id="rg-pass" type="password" placeholder="Mot de passe (6 caractères min)" class="mt">
+        <div id="rg-msg" class="msg"></div>
+        <button class="btn mt" style="width:100%" onclick="doRegister()">Créer mon compte pro</button>
+      </div>
+      <p class="mt"><a class="riderlink" href="/">← Retour à l'app cavaliers</a></p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dash-view" style="display:none">
+    <h1>Mon centre équestre</h1>
+    <p class="sub" id="dash-sub">Complétez le profil de votre club pour apparaître dans les recherches.</p>
+
+    <div class="card">
+      <h2>📋 Profil du club</h2>
+      <div class="row">
+        <div><label class="fld">Nom du club *</label><input id="c-name" placeholder="Ex : Centre équestre du Médoc"></div>
+        <div><label class="fld">Ville *</label><input id="c-city" placeholder="Ville"></div>
+      </div>
+      <div class="row">
+        <div><label class="fld">Adresse</label><input id="c-address" placeholder="Adresse"></div>
+        <div><label class="fld">Téléphone</label><input id="c-phone" placeholder="Téléphone"></div>
+      </div>
+      <label class="fld">Email de contact</label><input id="c-email" type="email" placeholder="contact@...">
+      <label class="fld">Description</label><textarea id="c-desc" placeholder="Ambiance, installations, points forts..."></textarea>
+      <label class="fld">Disciplines</label>
+      <div class="checks" id="c-disc"></div>
+      <div id="club-msg" class="msg"></div>
+      <button class="btn mt" onclick="saveClub()">Enregistrer le profil</button>
+    </div>
+
+    <div class="card">
+      <h2>📅 Synchroniser mon agenda</h2>
+      <p class="hint">Collez le lien iCal de votre agenda (Google Agenda, Outlook, ou votre logiciel de gestion) : vos cours se transforment automatiquement en créneaux réservables.<br><b>Google Agenda</b> : Paramètres de l'agenda → « Intégrer l'agenda » → <i>Adresse secrète au format iCal</i>.</p>
+      <input id="ical-url" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics">
+      <div id="ical-msg" class="msg"></div>
+      <button class="btn mt" id="ical-btn" onclick="syncIcal()">Synchroniser l'agenda</button>
+    </div>
+
+    <div class="card">
+      <h2>➕ Ajouter un créneau manuellement</h2>
+      <div class="row">
+        <div><label class="fld">Date</label><input type="date" id="s-date"></div>
+        <div><label class="fld">Heure</label><input type="time" id="s-time" value="10:00"></div>
+        <div><label class="fld">Durée</label><select id="s-dur"><option value="45">45 min</option><option value="60" selected>1h</option><option value="90">1h30</option><option value="120">2h</option></select></div>
+      </div>
+      <div class="row">
+        <div><label class="fld">Type</label><select id="s-type"><option>Cours collectif</option><option>Cours particulier</option><option>Stage</option><option>Balade / Randonnée</option></select></div>
+        <div><label class="fld">Niveau</label><select id="s-level"><option>Galop 1-2</option><option>Galop 3-4</option><option>Galop 5-6</option><option>Galop 7</option><option>Débutant</option><option>Confirmé</option><option>Tous niveaux</option></select></div>
+      </div>
+      <div class="row">
+        <div><label class="fld">Places</label><input type="number" id="s-cap" value="8" min="1" max="40"></div>
+        <div><label class="fld">Prix (€)</label><input type="number" id="s-price" min="0" placeholder="Prix libre"></div>
+      </div>
+      <div id="slot-msg" class="msg"></div>
+      <button class="btn mt" onclick="addSlot()">Ajouter ce créneau</button>
+    </div>
+
+    <div class="card">
+      <h2>🗓️ Mes créneaux à venir</h2>
+      <div id="slots-list"><p class="empty">Chargement…</p></div>
+    </div>
+
+    <div class="card">
+      <h2>🏇 Réservations reçues</h2>
+      <div id="bookings-list"><p class="empty">Chargement…</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL  = "https://cqkvfsosihdjvyhoafja.supabase.co";
+const SUPABASE_ANON = "sb_publishable_s1eCT9MBCjuYif8O-4Fveg_98KFf-0B";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+let ME = null, CLUB = null;
+const DISCIPLINES = ['CSO','Dressage','Randonnée','Galops','Équifun','Voltige','Endurance','Poney'];
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function msg(id,type,txt){const e=document.getElementById(id);e.className='msg '+type;e.textContent=txt;}
+function fmtDate(d){if(!d)return'';const p=d.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+
+function switchTab(t){
+  document.getElementById('tab-login').classList.toggle('active',t==='login');
+  document.getElementById('tab-register').classList.toggle('active',t==='register');
+  document.getElementById('login-form').style.display=t==='login'?'block':'none';
+  document.getElementById('register-form').style.display=t==='register'?'block':'none';
+}
+
+async function doLogin(){
+  const email=document.getElementById('lg-email').value.trim();
+  const pass=document.getElementById('lg-pass').value;
+  if(!email||!pass){msg('lg-msg','err','Remplis tous les champs.');return;}
+  const {error}=await sb.auth.signInWithPassword({email,password:pass});
+  if(error) msg('lg-msg','err',/invalid/i.test(error.message)?'Email ou mot de passe incorrect.':error.message);
+}
+async function doRegister(){
+  const name=document.getElementById('rg-name').value.trim();
+  const email=document.getElementById('rg-email').value.trim();
+  const pass=document.getElementById('rg-pass').value;
+  if(!name||!email||!pass){msg('rg-msg','err','Remplis tous les champs.');return;}
+  if(pass.length<6){msg('rg-msg','err','Mot de passe trop court (6 min).');return;}
+  const {data,error}=await sb.auth.signUp({email,password:pass,options:{data:{name}}});
+  if(error){msg('rg-msg','err',/registered|exists/i.test(error.message)?'Email déjà utilisé.':error.message);return;}
+  if(data.user){try{await sb.from('profiles').upsert({id:data.user.id,name});}catch(e){}}
+  msg('rg-msg','ok','Compte créé ! 🎉');
+}
+async function doLogout(){await sb.auth.signOut();}
+
+function buildDiscipline(){
+  document.getElementById('c-disc').innerHTML=DISCIPLINES.map(d=>'<label><input type="checkbox" value="'+d+'"> '+d+'</label>').join('');
+}
+
+sb.auth.onAuthStateChange((_e,session)=>{ ME = session?session.user:null; render(); });
+
+async function render(){
+  if(ME){
+    document.getElementById('auth-view').style.display='none';
+    document.getElementById('dash-view').style.display='block';
+    document.getElementById('logout-btn').style.display='block';
+    buildDiscipline();
+    await loadClub();
+    await loadSlots();
+    await loadBookings();
+  } else {
+    document.getElementById('auth-view').style.display='block';
+    document.getElementById('dash-view').style.display='none';
+    document.getElementById('logout-btn').style.display='none';
+  }
+}
+
+async function loadClub(){
+  const {data}=await sb.from('clubs').select('*').eq('owner_id',ME.id).limit(1);
+  CLUB=(data&&data[0])||null;
+  if(CLUB){
+    document.getElementById('c-name').value=CLUB.name||'';
+    document.getElementById('c-city').value=CLUB.city||'';
+    document.getElementById('c-address').value=CLUB.address||'';
+    document.getElementById('c-phone').value=CLUB.phone||'';
+    document.getElementById('c-email').value=CLUB.email||'';
+    document.getElementById('c-desc').value=CLUB.description||'';
+    document.getElementById('ical-url').value=CLUB.ical_url||'';
+    const set=new Set(CLUB.disciplines||[]);
+    document.querySelectorAll('#c-disc input').forEach(i=>{i.checked=set.has(i.value);});
+    document.getElementById('dash-sub').textContent='Votre club « '+CLUB.name+' » est en ligne.';
+  }
+}
+async function saveClub(){
+  const name=document.getElementById('c-name').value.trim();
+  const city=document.getElementById('c-city').value.trim();
+  if(!name||!city){msg('club-msg','err','Le nom et la ville sont obligatoires.');return;}
+  const disciplines=[].slice.call(document.querySelectorAll('#c-disc input:checked')).map(i=>i.value);
+  const data={name,city,
+    address:document.getElementById('c-address').value.trim(),
+    phone:document.getElementById('c-phone').value.trim(),
+    email:document.getElementById('c-email').value.trim(),
+    description:document.getElementById('c-desc').value.trim(),
+    disciplines,owner_id:ME.id};
+  try{
+    let r;
+    if(CLUB){r=await sb.from('clubs').update(data).eq('id',CLUB.id).select();}
+    else{r=await sb.from('clubs').insert(data).select();}
+    if(r.error)throw r.error;
+    CLUB=r.data&&r.data[0]?r.data[0]:CLUB;
+    msg('club-msg','ok','Profil enregistré ✓');
+    document.getElementById('dash-sub').textContent='Votre club « '+name+' » est en ligne.';
+  }catch(e){msg('club-msg','err','Erreur : '+e.message);}
+}
+
+async function addSlot(){
+  if(!CLUB){msg('slot-msg','err','Enregistre d\'abord le profil du club.');return;}
+  const date=document.getElementById('s-date').value;
+  const time=document.getElementById('s-time').value;
+  if(!date||!time){msg('slot-msg','err','Date et heure obligatoires.');return;}
+  const data={club_id:CLUB.id,date,start_time:time,
+    duration:parseInt(document.getElementById('s-dur').value),
+    type:document.getElementById('s-type').value,
+    level:document.getElementById('s-level').value,
+    max_capacity:parseInt(document.getElementById('s-cap').value)||8,
+    price:parseFloat(document.getElementById('s-price').value)||0,booked_count:0};
+  const {error}=await sb.from('slots').insert(data);
+  if(error){msg('slot-msg','err','Erreur : '+error.message);return;}
+  msg('slot-msg','ok','Créneau ajouté ✓');
+  document.getElementById('s-date').value='';
+  loadSlots();
+}
+
+async function loadSlots(){
+  const el=document.getElementById('slots-list');
+  if(!CLUB){el.innerHTML='<p class="empty">Enregistrez d\'abord le profil de votre club.</p>';return;}
+  const today=new Date().toISOString().split('T')[0];
+  const {data}=await sb.from('slots').select('*').eq('club_id',CLUB.id).gte('date',today).order('date').order('start_time');
+  const slots=data||[];
+  if(!slots.length){el.innerHTML='<p class="empty">Aucun créneau à venir. Ajoutez-en ou synchronisez votre agenda.</p>';return;}
+  el.innerHTML=slots.map(s=>'<div class="slot"><div><b>'+fmtDate(s.date)+' '+esc(s.start_time)+'</b> · '+esc(s.type)+' · '+esc(s.level)+' <span class="tag">'+(s.booked_count||0)+'/'+s.max_capacity+'</span></div><button class="del" onclick="delSlot(\''+s.id+'\')">Suppr</button></div>').join('');
+}
+async function delSlot(id){
+  if(!confirm('Supprimer ce créneau ?'))return;
+  const {error}=await sb.from('slots').delete().eq('id',id);
+  if(!error) loadSlots();
+}
+
+async function syncIcal(){
+  if(!CLUB){msg('ical-msg','err','Enregistre d\'abord le profil du club.');return;}
+  const url=document.getElementById('ical-url').value.trim();
+  if(!url){msg('ical-msg','err','Colle le lien iCal de ton agenda.');return;}
+  const btn=document.getElementById('ical-btn');btn.disabled=true;btn.textContent='Synchronisation…';
+  try{
+    const r=await fetch('/api/ical?url='+encodeURIComponent(url));
+    const j=await r.json();
+    if(!r.ok)throw new Error(j.error||'Erreur');
+    const events=j.events||[];
+    const today=new Date().toISOString().split('T')[0];
+    const {data:existing}=await sb.from('slots').select('date,start_time').eq('club_id',CLUB.id).gte('date',today);
+    const seen=new Set((existing||[]).map(s=>s.date+'|'+s.start_time));
+    const rows=[];
+    for(const ev of events){
+      if(ev.date<today)continue;
+      const t=(ev.start_time||'').slice(0,5);
+      if(seen.has(ev.date+'|'+t))continue;
+      seen.add(ev.date+'|'+t);
+      rows.push({club_id:CLUB.id,date:ev.date,start_time:t||'00:00',duration:ev.duration||60,type:ev.title||'Cours',level:'Tous niveaux',max_capacity:8,price:0,booked_count:0});
+    }
+    if(rows.length){const {error}=await sb.from('slots').insert(rows);if(error)throw error;}
+    try{await sb.from('clubs').update({ical_url:url}).eq('id',CLUB.id);CLUB.ical_url=url;}catch(e){}
+    msg('ical-msg','ok',j.count+' événements lus · '+rows.length+' nouveaux créneaux ajoutés ✓');
+    loadSlots();
+  }catch(e){msg('ical-msg','err','Erreur : '+e.message);}
+  btn.disabled=false;btn.textContent='Synchroniser l\'agenda';
+}
+
+async function loadBookings(){
+  const el=document.getElementById('bookings-list');
+  if(!CLUB){el.innerHTML='<p class="empty">—</p>';return;}
+  const {data:slots}=await sb.from('slots').select('id,date,start_time,type').eq('club_id',CLUB.id);
+  const ids=(slots||[]).map(s=>s.id);
+  if(!ids.length){el.innerHTML='<p class="empty">Aucune réservation pour le moment.</p>';return;}
+  const byId={};(slots||[]).forEach(s=>byId[s.id]=s);
+  const {data:bk}=await sb.from('bookings').select('*').in('slot_id',ids).order('booked_at',{ascending:false});
+  const bookings=bk||[];
+  if(!bookings.length){el.innerHTML='<p class="empty">Aucune réservation pour le moment.</p>';return;}
+  el.innerHTML=bookings.map(b=>{const s=byId[b.slot_id]||{};return '<div class="slot"><div><b>'+esc(b.user_name||'Cavalier')+'</b> · '+esc(b.user_email||'')+'<br><span style="color:var(--ink-sub);font-size:.9em">'+fmtDate(s.date)+' '+esc(s.start_time||'')+' · '+esc(s.type||'')+'</span></div></div>';}).join('');
+}
+
+(async function(){const {data}=await sb.auth.getSession();ME=data.session?data.session.user:null;render();})();
+</script>
+</body>
+</html>
