@@ -41,7 +41,7 @@ header p{display:none;}
 #progress-banner #star-count{color:var(--accent);}
 .prog-bar-wrap{flex:1;height:9px;background:var(--accent-bg);border-radius:10px;min-width:60px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(30,27,58,.08);}
 .prog-bar{height:100%;background:var(--grad-brand);border-radius:10px;transition:width .6s ease;}
-#rank-badge{font-size:.72em;font-weight:700;color:#fff;background:var(--accent-2);padding:3px 11px;border-radius:6px;white-space:nowrap;letter-spacing:.3px;}
+#rank-badge{font-size:.72em;font-weight:700;color:#fff;background:var(--accent);padding:3px 11px;border-radius:6px;white-space:nowrap;letter-spacing:.3px;}
 
 /* SECTIONS */
 .section{display:none;padding:16px;max-width:640px;margin:0 auto;}
@@ -2615,54 +2615,60 @@ async function searchClubs() {
       '<p style="color:#e74c3c;text-align:center">Base de données requise pour la recherche.</p>';
     return;
   }
-  const city  = document.getElementById('search-city').value.trim().toLowerCase();
+  const city  = document.getElementById('search-city').value.trim();
   const date  = document.getElementById('search-date').value;
   const level = document.getElementById('search-level').value;
   const type  = document.getElementById('search-type').value;
   const resultsEl = document.getElementById('clubs-results');
-  resultsEl.innerHTML = '<p style="color:#aaa;text-align:center">Recherche en cours…</p>';
+  if (!city) {
+    resultsEl.innerHTML = '<p style="color:#6E7B74;text-align:center;padding:24px 8px">Entre une ville ou un code postal pour trouver les centres \u00e9questres pr\u00e8s de chez toi.</p>';
+    return;
+  }
+  resultsEl.innerHTML = '<p style="color:#aaa;text-align:center">Recherche en cours\u2026</p>';
   try {
-    const rc = await sb.from('clubs').select('*');
+    const term = city.replace(/[%,]/g, ' ');
+    const rc = await sb.from('clubs').select('*').or('city.ilike.%'+term+'%,address.ilike.%'+term+'%').order('city').limit(40);
     if (rc.error) throw rc.error;
     const clubs = rc.data || [];
     if (!clubs.length) {
-      resultsEl.innerHTML = '<p style="color:#aaa;text-align:center;padding:30px 0">Aucun club inscrit pour le moment. Revenez bientôt ! 🐴</p>';
+      resultsEl.innerHTML = '<p style="color:#aaa;text-align:center;padding:30px 0">Aucun centre trouv\u00e9 pour \u00ab ' + esc(city) + ' \u00bb. \ud83d\udc0e</p>';
       return;
     }
+    const ids = clubs.map(function(c){ return c.id; });
     const today = new Date().toISOString().split('T')[0];
+    const slotsByClub = {};
+    try {
+      const rs = await sb.from('slots').select('*').in('club_id', ids).gte('date', today).order('date');
+      (rs.data||[]).forEach(function(sl){ (slotsByClub[sl.club_id] = slotsByClub[sl.club_id] || []).push(sl); });
+    } catch(e){}
     let html = '';
     for (const club of clubs) {
-      if (city && !(club.city||'').toLowerCase().includes(city) && !(club.address||'').toLowerCase().includes(city)) continue;
-      let q = sb.from('slots').select('*').eq('club_id', club.id).gte('date', today).order('date');
-      if (date) q = q.eq('date', date);
-      const rs = await q;
-      let slots = rs.data || [];
+      let slots = slotsByClub[club.id] || [];
       if (level) slots = slots.filter(function(s){ return s.level === level; });
       if (type)  slots = slots.filter(function(s){ return s.type === type; });
-      if (slots.length === 0 && (city || date || level || type)) continue;
-      const disciplines = (club.disciplines||[]).map(function(d){ return '<span class="discipline-tag">' + esc(d) + '</span>'; }).join('');
+      if (date)  slots = slots.filter(function(s){ return s.date === date; });
       const slotsHtml = slots.length === 0
-        ? '<p style="color:#aaa;font-size:.82em">Aucun créneau disponible actuellement.</p>'
+        ? '<p style="color:#9aa39c;font-size:.82em;margin-top:4px">Aucun cr\u00e9neau publi\u00e9 pour le moment.</p>'
         : '<div class="slots-list">' + slots.map(function(sl){
             const full = (sl.booked_count||0) >= (sl.max_capacity||10);
             const dispo = (sl.max_capacity||10) - (sl.booked_count||0);
             return '<div class="slot-card">' +
-              '<div class="slot-time">📅 ' + formatDate(sl.date) + ' à ' + esc(sl.start_time) + '</div>' +
-              '<div class="slot-type">' + esc(sl.type) + ' · ' + esc(sl.level) + '</div>' +
-              '<div class="slot-info">⏱ ' + (sl.duration||60) + ' min · 👤 ' + dispo + ' place' + (dispo>1?'s':'') + ' · ' + (sl.price?esc(sl.price)+'€':'Prix libre') + '</div>' +
+              '<div class="slot-time">\ud83d\udcc5 ' + formatDate(sl.date) + ' \u00e0 ' + esc(sl.start_time) + '</div>' +
+              '<div class="slot-type">' + esc(sl.type) + ' \u00b7 ' + esc(sl.level) + '</div>' +
+              '<div class="slot-info">\u23f1 ' + (sl.duration||60) + ' min \u00b7 \ud83d\udc64 ' + dispo + ' place' + (dispo>1?'s':'') + ' \u00b7 ' + (sl.price?esc(sl.price)+'\u20ac':'Prix libre') + '</div>' +
               (full ? '<div class="slot-full">Complet</div>'
-                    : '<button class="book-btn" onclick="bookSlot(\'' + sl.id + '\',this)">Réserver</button>') +
+                    : '<button class="book-btn" onclick="bookSlot(\'' + sl.id + '\',this)">R\u00e9server</button>') +
               '</div>';
           }).join('') + '</div>';
       html += '<div class="club-card">' +
-        '<h3>🏇 ' + esc(club.name||'Club sans nom') + '</h3>' +
-        '<div class="club-meta">📍 ' + esc(club.city||'') + ' ' + (club.address ? '· '+esc(club.address) : '') + ' ' + (club.phone ? '· 📞 '+esc(club.phone) : '') + '</div>' +
-        '<div class="club-disciplines">' + disciplines + '</div>' +
+        '<h3>\ud83c\udfc7 ' + esc(club.name||'Club sans nom') + '</h3>' +
+        '<div class="club-meta">\ud83d\udccd ' + esc(club.city||'') + (club.address ? ' \u00b7 ' + esc(club.address) : '') + (club.phone ? ' \u00b7 \ud83d\udcde ' + esc(club.phone) : '') + '</div>' +
+        ((club.disciplines && club.disciplines.length) ? '<div class="club-disciplines">' + club.disciplines.map(function(d){ return '<span class="discipline-tag">'+esc(d)+'</span>'; }).join('') + '</div>' : '') +
         (club.description ? '<p style="font-size:.82em;color:#555;margin:0 0 10px">' + esc(club.description) + '</p>' : '') +
         slotsHtml +
       '</div>';
     }
-    resultsEl.innerHTML = html || '<p style="color:#aaa;text-align:center;padding:30px 0">Aucun résultat pour ces critères.</p>';
+    resultsEl.innerHTML = html;
   } catch(e) {
     resultsEl.innerHTML = '<p style="color:#e74c3c;text-align:center">Erreur : ' + esc(e.message) + '</p>';
     console.warn(e);
