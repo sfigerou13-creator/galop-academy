@@ -5,32 +5,30 @@
 <meta name="description" content="Application gratuite et complète pour réviser les galops FFE (niveaux 1 à 7) — mini-cours, QCM, anatomie interactive.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <title>Galop Academy</title>
 <style>
 /* ===== GALOP ACADEMY — DESIGN SYSTEM ===== */
 :root {
-  --ink: #1E1B3A; --ink-sub: #6B6890;
-  --surface: #F4F1FB; --white: #FFFFFF; --border: #E7E2F5;
-  --accent: #7C3AED; --accent-2: #EC4899; --accent-bg: #F3EDFF;
-  --grad-brand: linear-gradient(135deg,#7C3AED 0%,#EC4899 100%);
-  --grad-warm: linear-gradient(135deg,#FB7185 0%,#F59E0B 100%);
-  --g1:#F43F5E; --g2:#FB923C; --g3:#FACC15;
-  --g4:#34D399; --g5:#F472B6; --g6:#38BDF8; --g7:#A78BFA;
-  --r-sm:10px; --r:18px; --r-lg:26px;
-  --shadow:0 4px 14px rgba(124,58,237,.08),0 1px 3px rgba(30,27,58,.06);
-  --shadow-md:0 14px 34px rgba(124,58,237,.16);
+  --ink: #22302B; --ink-sub: #6E7B74;
+  --surface: #F6F3EC; --white: #FFFFFF; --border: #E6DFD1;
+  --accent: #2F5D4F; --accent-2: #B08D57; --accent-bg: #EAF0EC;
+  --grad-brand: linear-gradient(135deg,#2F5D4F 0%,#244A3F 100%);
+  --grad-warm: linear-gradient(135deg,#B08D57 0%,#9A7845 100%);
+  --g1:#8C5A54; --g2:#B07C4F; --g3:#A88B3D;
+  --g4:#4F7A5E; --g5:#7E6A86; --g6:#4A6B84; --g7:#5B5470;
+  --r-sm:8px; --r:12px; --r-lg:16px;
+  --shadow:0 2px 12px rgba(34,48,43,.06),0 1px 2px rgba(34,48,43,.05);
+  --shadow-md:0 12px 30px rgba(34,48,43,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Poppins','Segoe UI',system-ui,sans-serif;background:
-  radial-gradient(1200px 480px at 100% -10%,#FCE7F3 0%,transparent 55%),
-  radial-gradient(1000px 460px at -10% 0%,#EDE9FE 0%,transparent 50%),
-  var(--surface);background-attachment:fixed;color:var(--ink);min-height:100vh;padding-bottom:68px;-webkit-font-smoothing:antialiased;}
+body{font-family:'Poppins','Segoe UI',system-ui,sans-serif;background:var(--surface);color:var(--ink);min-height:100vh;padding-bottom:68px;-webkit-font-smoothing:antialiased;}
 
 /* HEADER */
-header{background:var(--grad-brand);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 18px rgba(124,58,237,.28);}
-header h1{font-size:1.05em;font-weight:800;color:#fff;letter-spacing:-.2px;display:flex;align-items:center;gap:6px;}
-header h1::before{content:'🐴';font-size:1.05em;}
+header{background:#22302B;padding:0 16px;height:58px;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:100;box-shadow:inset 0 -1px 0 rgba(176,141,87,.35);}
+header h1{font-family:'Playfair Display',Georgia,serif;font-size:1.3em;font-weight:600;color:#F3EFE6;letter-spacing:.3px;display:flex;align-items:center;gap:9px;}
+header h1::before{content:'♞';font-size:.92em;color:#B08D57;}
+.hub-hero h2,.section-hero-overlay h2,.clubs-hero-overlay h2,.article-hero h2,.result-card h3,.medal-title,.galop-card-body h3,#partner-box h2,#auth-box h2{font-family:'Playfair Display',Georgia,serif;font-weight:600;letter-spacing:.2px;}
 header p{display:none;}
 #back-btn,#auth-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-sm);color:rgba(255,255,255,.9);font-family:inherit;font-size:.75em;font-weight:600;padding:6px 12px;cursor:pointer;white-space:nowrap;}
 #back-btn{left:12px;display:none;}
@@ -43,7 +41,7 @@ header p{display:none;}
 #progress-banner #star-count{color:var(--accent);}
 .prog-bar-wrap{flex:1;height:9px;background:var(--accent-bg);border-radius:10px;min-width:60px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(30,27,58,.08);}
 .prog-bar{height:100%;background:var(--grad-brand);border-radius:10px;transition:width .6s ease;}
-#rank-badge{font-size:.74em;font-weight:800;color:#fff;background:var(--grad-warm);padding:3px 10px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 8px rgba(245,158,11,.35);}
+#rank-badge{font-size:.72em;font-weight:700;color:#fff;background:var(--accent-2);padding:3px 11px;border-radius:6px;white-space:nowrap;letter-spacing:.3px;}
 
 /* SECTIONS */
 .section{display:none;padding:16px;max-width:640px;margin:0 auto;}
@@ -78,8 +76,8 @@ header p{display:none;}
 .galop-card-body h3{font-size:1.05em;font-weight:800;color:var(--ink);margin-bottom:3px;}
 .galop-card-body .level-desc{font-size:.82em;color:var(--ink-sub);margin-bottom:13px;line-height:1.45;}
 .galop-card-actions{display:flex;gap:8px;}
-.card-btn-primary{flex:2;padding:11px;background:var(--grad-brand);color:#fff;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.82em;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 12px rgba(124,58,237,.28);}
-.card-btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(124,58,237,.36);}
+.card-btn-primary{flex:2;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.82em;font-weight:600;cursor:pointer;transition:background .15s;}
+.card-btn-primary:hover{background:#244A3F;}
 .card-btn-secondary{flex:1;padding:10px;background:var(--surface);color:var(--ink-sub);border:1px solid var(--border);border-radius:var(--r-sm);font-family:inherit;font-size:.8em;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;transition:background .15s;}
 .card-btn-secondary:hover{background:var(--border);}
 
@@ -119,8 +117,8 @@ header p{display:none;}
 .explanation{margin-top:10px;background:#FFFBEB;border-radius:8px;padding:10px 13px;font-size:.82em;color:#92400E;border-left:3px solid #F59E0B;display:none;}
 .explanation.show{display:block;}
 .qcm-nav{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap;}
-.btn-primary{background:var(--grad-brand);color:#fff;border:none;border-radius:var(--r-sm);padding:13px 28px;font-size:.9em;font-weight:700;font-family:inherit;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(124,58,237,.3);}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(124,58,237,.4);}
+.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:var(--r-sm);padding:13px 28px;font-size:.9em;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s;}
+.btn-primary:hover{background:#244A3F;}
 .btn-secondary{background:var(--white);color:var(--ink-sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:11px 22px;font-size:.88em;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s;}
 .btn-secondary:hover{background:var(--surface);}
 
@@ -244,7 +242,7 @@ header p{display:none;}
 .hub-hero{position:relative;border-radius:var(--r-lg);overflow:hidden;margin-bottom:6px;padding:22px 18px;color:#fff;background:var(--grad-brand);box-shadow:var(--shadow-md);}
 .hub-hero h2{font-size:1.35em;font-weight:800;margin-bottom:3px;}
 .hub-hero p{font-size:.84em;opacity:.92;line-height:1.4;}
-.hub-title{font-size:.78em;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--ink);margin:20px 2px 10px;display:flex;align-items:center;gap:6px;}
+.hub-title{font-size:.72em;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;color:var(--ink-sub);margin:22px 2px 11px;display:flex;align-items:center;gap:6px;}
 .hub-tile{display:flex;align-items:center;gap:13px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:15px;box-shadow:var(--shadow);cursor:pointer;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s;}
 .hub-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
 .hub-tile-ico{width:46px;height:46px;flex-shrink:0;border-radius:14px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:1.5em;}
@@ -295,7 +293,7 @@ header p{display:none;}
 .galop-medal{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 12px 15px;box-shadow:var(--shadow);cursor:pointer;font-family:inherit;transition:transform .15s,box-shadow .15s;animation:slideUp .45s cubic-bezier(.22,.68,0,1.2) both;}
 .galop-medal:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
 .galop-medal.done{border-color:#FACC15;box-shadow:0 6px 20px rgba(250,204,21,.28);}
-.medal-circle{position:relative;width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.9em;font-weight:800;box-shadow:0 6px 16px rgba(30,27,58,.22);}
+.medal-circle{position:relative;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5em;font-weight:600;font-family:'Playfair Display',Georgia,serif;box-shadow:0 4px 12px rgba(34,48,43,.18);}
 .medal-crown{position:absolute;top:-11px;right:-9px;font-size:.6em;transform:rotate(18deg);}
 .medal-stars{display:flex;gap:2px;font-size:.92em;line-height:1;}
 .medal-star{color:var(--border);}
@@ -363,7 +361,7 @@ header p{display:none;}
 .streak-badge{position:fixed;bottom:80px;right:12px;background:linear-gradient(135deg,#F97316,#EF4444);color:#fff;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82em;z-index:200;box-shadow:0 4px 16px rgba(239,68,68,.45);animation:streakPop .4s cubic-bezier(.22,.68,0,1.2) both}
 .streak-badge.hidden{display:none!important}
 .result-card{animation:resultSlide .5s ease both}
-.prog-bar{background:linear-gradient(90deg,var(--accent),#818CF8)!important;transition:width .55s cubic-bezier(.4,0,.2,1)!important}
+.prog-bar{background:var(--accent)!important;transition:width .55s cubic-bezier(.4,0,.2,1)!important}
 .bnav-btn.active .bnav-icon{animation:navBounce .35s ease}
 
 </style>
@@ -456,14 +454,14 @@ header p{display:none;}
 <div class="section active" id="home">
 
   <div class="hub-hero">
-    <h2 id="hub-greeting">Bienvenue 👋</h2>
+    <h2 id="hub-greeting">Bienvenue</h2>
     <p>Ton hub équitation : galops, ton centre, conseils &amp; actus</p>
   </div>
 
-  <h3 class="hub-title">🏇 Mon centre équestre</h3>
+  <h3 class="hub-title">Mon centre équestre</h3>
   <div id="center-block"></div>
 
-  <h3 class="hub-title">📚 Réviser mes galops</h3>
+  <h3 class="hub-title">Réviser mes galops</h3>
   <a class="hub-tile" onclick="switchMainTab('galops')">
     <div class="hub-tile-ico">📚</div>
     <div class="hub-tile-text">
@@ -474,7 +472,7 @@ header p{display:none;}
     <div class="hub-tile-prog" id="galop-tile-prog">0 / 21 ⭐</div>
   </a>
 
-  <h3 class="hub-title">🔍 Explorer le cheval</h3>
+  <h3 class="hub-title">Explorer le cheval</h3>
   <div class="tool-grid">
     <a class="tool-tile" onclick="openSection('anatomy-page')"><span class="tool-ico">🐎</span><span class="tool-lbl">Anatomie</span></a>
     <a class="tool-tile" onclick="openSection('tete-page')"><span class="tool-ico">🐴</span><span class="tool-lbl">La tête</span></a>
@@ -488,10 +486,10 @@ header p{display:none;}
 
   <div id="home-ad" style="margin-top:16px"></div>
 
-  <h3 class="hub-title">💡 Le conseil du jour</h3>
+  <h3 class="hub-title">Le conseil du jour</h3>
   <div id="tip-block"></div>
 
-  <h3 class="hub-title">📰 À lire · Équitation</h3>
+  <h3 class="hub-title">À lire · Équitation</h3>
   <div id="articles-list"></div>
 
   <div style="display:none">
@@ -2149,7 +2147,7 @@ function renderHub(){
   const h=new Date().getHours();
   const hello=h<12?'Bonjour':h<18?'Bel après-midi':'Bonne soirée';
   const who=(c&&c.rider)?(', '+c.rider):'';
-  const g=document.getElementById('hub-greeting'); if(g) g.textContent=hello+who+' 👋';
+  const g=document.getElementById('hub-greeting'); if(g) g.textContent=hello+who;
   renderCenterBlock(); renderTip(); renderArticles();
   const total=Object.values(progress).reduce((a,b)=>a+b,0);
   const gt=document.getElementById('galop-tile-prog'); if(gt) gt.textContent=total+' / 21 ⭐';
@@ -2215,7 +2213,7 @@ function renderHomeGrid(){
     const done=stars>=3?' done':'';
     parts.push(
       `<button class="galop-medal${done}" onclick="openGalop(${g.id})">`
-      +`<span class="medal-circle" style="background:linear-gradient(140deg,${g.color},rgba(0,0,0,.32))">${g.id}`
+      +`<span class="medal-circle" style="background:linear-gradient(140deg,var(--g${g.id}),rgba(0,0,0,.22))">${g.id}`
       +(stars>=3?`<span class="medal-crown">👑</span>`:``)+`</span>`
       +`<span class="medal-stars">${starHTML}</span>`
       +`<span class="medal-title">Galop ${g.id}</span>`
