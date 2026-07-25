@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<meta name="google-site-verification" content="FrojotHhNvrBXymKVYqnEc-5oKNL6aTvpXkpoMgfmeQ">
 <meta charset="UTF-8">
 <meta name="description" content="Application gratuite et complète pour réviser les galops FFE (niveaux 1 à 7) — mini-cours, QCM, anatomie interactive.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -396,6 +397,14 @@ header p{display:none;}
 .prog-bar{background:var(--accent)!important;transition:width .55s cubic-bezier(.4,0,.2,1)!important}
 .bnav-btn.active .bnav-icon{animation:navBounce .35s ease}
 
+
+.guide-links{display:flex;flex-direction:column;gap:8px}
+.guide-links .guide-link{display:block;background:var(--white,#fff);border:1px solid var(--border,#E6DFD1);border-radius:10px;padding:13px 16px;text-decoration:none;color:var(--ink,#22302B);font-weight:500;font-size:.92em}
+.guide-links .guide-link:hover{border-color:var(--accent,#2F5D4F)}
+.guide-links .guide-all{color:var(--accent,#2F5D4F);font-weight:600;background:var(--accent-bg,#EAF0EC);border-color:transparent}
+.site-footer{margin-top:26px;padding-top:18px;border-top:1px solid var(--border,#E6DFD1);text-align:center;font-size:.82em;color:var(--ink-sub,#6E7B74)}
+.site-footer a{color:var(--accent,#2F5D4F);text-decoration:none}
+.site-footer-copy{margin-top:8px;font-size:.92em;opacity:.8}
 </style>
 
 <!-- ══ FIREBASE SDK ══ -->
@@ -523,6 +532,26 @@ header p{display:none;}
 
   <h3 class="hub-title">À lire · Équitation</h3>
   <div id="articles-list"></div>
+
+  <h3 class="hub-title">Guides &amp; conseils</h3>
+  <div class="guide-links">
+    <a href="/conseils/debuter-equitation" class="guide-link">Comment débuter l'équitation</a>
+    <a href="/conseils/galops-ffe" class="guide-link">Les galops FFE expliqués (1 à 7)</a>
+    <a href="/conseils/pansage-cheval" class="guide-link">Bien brosser et panser son cheval</a>
+    <a href="/conseils/choisir-centre-equestre" class="guide-link">Comment choisir son centre équestre</a>
+    <a href="/conseils/equipement-cavalier-debutant" class="guide-link">L'équipement du cavalier débutant</a>
+    <a href="/conseils" class="guide-link guide-all">Tous les conseils →</a>
+  </div>
+
+  <h3 class="hub-title">Trouver un centre équestre</h3>
+  <div class="guide-links">
+    <a href="/annuaire" class="guide-link guide-all">Annuaire des centres par département →</a>
+  </div>
+
+  <footer class="site-footer">
+    <a href="/conseils">Conseils</a> · <a href="/annuaire">Annuaire des centres</a> · <a href="/pro">Espace pro (clubs)</a>
+    <div class="site-footer-copy">Galop Academy — réviser ses galops FFE &amp; trouver un club</div>
+  </footer>
 
   <div style="display:none">
     <div class="extra-card" onclick="openSection('anatomy-page')"></div>
