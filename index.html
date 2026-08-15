@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<meta name="theme-color" content="#22302B">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Galop Academy">
 <meta name="google-site-verification" content="FrojotHhNvrBXymKVYqnEc-5oKNL6aTvpXkpoMgfmeQ">
 <meta charset="UTF-8">
 <meta name="description" content="Application gratuite et complète pour réviser les galops FFE (niveaux 1 à 7) — mini-cours, QCM, anatomie interactive.">
@@ -498,6 +505,8 @@ header p{display:none;}
     <h2 id="hub-greeting">Bienvenue</h2>
     <p>Ton hub équitation : galops, ton centre, conseils &amp; actus</p>
   </div>
+
+  <button id="pwa-install" onclick="pwaInstall()" style="display:none;width:100%;margin:2px 0 16px;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#2F5D4F,#244A3F);color:#fff;font-family:inherit;font-weight:600;font-size:.93em;cursor:pointer;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(34,48,43,.18)">📲 Installer l'appli sur mon écran d'accueil</button>
 
   <h3 class="hub-title">Mon centre équestre</h3>
   <div id="center-block"></div>
@@ -2332,8 +2341,17 @@ function goBack(){
   openSection('home');
 }
 
+function _shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function _randomizeQuestions(qs){
+  return _shuffle(qs.map(function(q){
+    var order=q.choices.map(function(c,i){return i;});
+    _shuffle(order);
+    return {q:q.q, choices:order.map(function(i){return q.choices[i];}), correct:order.indexOf(q.correct), expl:q.expl};
+  }));
+}
 function openGalop(id){
   currentGalop = GALOPS.find(g=>g.id===id);
+  currentGalop = Object.assign({}, currentGalop, {questions:_randomizeQuestions(currentGalop.questions)});
   qcmState = {current:0,answers:[],done:false};
   document.getElementById('galop-header').innerHTML = `
     <div style="font-size:.72em;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#9CA3AF;margin-bottom:4px">Galop ${currentGalop.id}</div>
@@ -2453,6 +2471,7 @@ function showResult(){
 
 function restart(){
   qcmState={current:0,answers:[],done:false};
+  if(currentGalop) currentGalop = Object.assign({}, currentGalop, {questions:_randomizeQuestions(currentGalop.questions)});
   document.getElementById('tab-result').style.display='none';
   renderQCM();
   switchTab('cours');
@@ -2930,5 +2949,12 @@ function _confetti(n){
     Mon centre
   </button>
 </nav>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+var _deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();_deferredPrompt=e;var b=document.getElementById('pwa-install');if(b)b.style.display='inline-flex';});
+function pwaInstall(){if(!_deferredPrompt)return;_deferredPrompt.prompt();_deferredPrompt.userChoice.finally(function(){_deferredPrompt=null;var b=document.getElementById('pwa-install');if(b)b.style.display='none';});}
+window.addEventListener('appinstalled',function(){var b=document.getElementById('pwa-install');if(b)b.style.display='none';});
+</script>
 </body>
 </html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

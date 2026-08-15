@@ -1,0 +1,18 @@
+{
+  "name": "Galop Academy",
+  "short_name": "Galop Academy",
+  "description": "Révise tes galops FFE (niveaux 1 à 7), explore l'anatomie du cheval et trouve ton centre équestre.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#22302B",
+  "theme_color": "#22302B",
+  "categories": ["education", "sports"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
