@@ -1,5 +1,5 @@
 /* Service worker Galop Academy — cache + support hors-ligne */
-const CACHE = 'galop-v1';
+const CACHE = 'galop-v2';
 const CORE = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (e) => {
